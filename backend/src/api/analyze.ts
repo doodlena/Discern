@@ -38,16 +38,24 @@ router.post('/', async (req: Request, res: Response) => {
     });
 
     // Rate limit check for non-admin users (10 analyses per day)
-    const userIp = req.ip || 'unknown';
-    const dailyLimit = parseInt(process.env.DAILY_ANALYSIS_LIMIT || '10');
-    const analysisCount = await database.getUserAnalysisCount(userIp);
+    // Skip rate limiting for admin users
+    const isAdmin = req.headers.authorization === process.env.ADMIN_PASSWORD ||
+                    req.headers.authorization === 'admin-authenticated';
 
-    if (analysisCount >= dailyLimit) {
-      logger.warn('Rate limit exceeded', { ip: userIp, count: analysisCount });
-      return res.status(429).json({
-        success: false,
-        error: `Daily limit reached. You can analyze up to ${dailyLimit} articles per day. Try again tomorrow or contact admin for increased access.`,
-      });
+    if (!isAdmin) {
+      const userIp = req.ip || 'unknown';
+      const dailyLimit = parseInt(process.env.DAILY_ANALYSIS_LIMIT || '10');
+      const analysisCount = await database.getUserAnalysisCount(userIp);
+
+      if (analysisCount >= dailyLimit) {
+        logger.warn('Rate limit exceeded', { ip: userIp, count: analysisCount });
+        return res.status(429).json({
+          success: false,
+          error: `Daily limit reached. You can analyze up to ${dailyLimit} articles per day. Try again tomorrow or contact admin for increased access.`,
+        });
+      }
+    } else {
+      logger.info('Admin user - skipping rate limit');
     }
 
     // Check cache first (if not in demo or explainability mode)
