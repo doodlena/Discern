@@ -122,22 +122,22 @@ export class DatabaseService {
 
       const totalAnalyses = analyses.length;
       const averageScore = totalAnalyses > 0
-        ? analyses.reduce((sum, a) => sum + a.score, 0) / totalAnalyses
+        ? analyses.reduce((sum: number, a: any) => sum + a.score, 0) / totalAnalyses
         : 0;
 
       // Score distribution
-      const lowScoreCount = analyses.filter((a) => a.score < 50).length;
-      const mediumScoreCount = analyses.filter((a) => a.score >= 50 && a.score < 80).length;
-      const highScoreCount = analyses.filter((a) => a.score >= 80).length;
+      const lowScoreCount = analyses.filter((a: any) => a.score < 50).length;
+      const mediumScoreCount = analyses.filter((a: any) => a.score >= 50 && a.score < 80).length;
+      const highScoreCount = analyses.filter((a: any) => a.score >= 80).length;
 
       // Content type breakdown
-      const urlCount = analyses.filter((a) => a.contentType === 'url').length;
-      const textCount = analyses.filter((a) => a.contentType === 'text').length;
-      const pdfCount = analyses.filter((a) => a.contentType === 'pdf').length;
+      const urlCount = analyses.filter((a: any) => a.contentType === 'url').length;
+      const textCount = analyses.filter((a: any) => a.contentType === 'text').length;
+      const pdfCount = analyses.filter((a: any) => a.contentType === 'pdf').length;
 
       // Top domains
       const domainMap = new Map<string, { count: number; totalScore: number }>();
-      analyses.forEach((a) => {
+      analyses.forEach((a: any) => {
         if (a.domain) {
           const existing = domainMap.get(a.domain) || { count: 0, totalScore: 0 };
           domainMap.set(a.domain, {
@@ -158,7 +158,7 @@ export class DatabaseService {
 
       // Daily analyses
       const dailyMap = new Map<string, number>();
-      analyses.forEach((a) => {
+      analyses.forEach((a: any) => {
         const date = a.createdAt.toISOString().split('T')[0];
         dailyMap.set(date, (dailyMap.get(date) || 0) + 1);
       });
@@ -199,7 +199,7 @@ export class DatabaseService {
         where: { isActive: true },
       });
 
-      return demoContent.map((item) => ({
+      return demoContent.map((item: any) => ({
         id: item.id,
         title: item.title,
         url: item.url,
@@ -231,11 +231,11 @@ export class DatabaseService {
         return null;
       }
 
-      const scores = analyses.map(a => a.score);
-      const biasScores = analyses.map(a => (a.factors as any)?.bias || 0);
-      const sourceScores = analyses.map(a => (a.factors as any)?.source_reputation || 0);
-      const evidenceScores = analyses.map(a => (a.factors as any)?.evidence || 0);
-      const logicScores = analyses.map(a => (a.factors as any)?.logic || 0);
+      const scores = analyses.map((a: any) => a.score);
+      const biasScores = analyses.map((a: any) => (a.factors as any)?.bias || 0);
+      const sourceScores = analyses.map((a: any) => (a.factors as any)?.source_reputation || 0);
+      const evidenceScores = analyses.map((a: any) => (a.factors as any)?.evidence || 0);
+      const logicScores = analyses.map((a: any) => (a.factors as any)?.logic || 0);
 
       // Helper functions for statistics
       const mean = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / arr.length;
@@ -303,7 +303,7 @@ export class DatabaseService {
       };
 
       // Multiple R-squared (how well do the 4 factors predict the score)
-      const predictedScores = analyses.map(a => {
+      const predictedScores = analyses.map((a: any) => {
         const factors = a.factors as any;
         return (factors?.bias || 0) + (factors?.source_reputation || 0) +
                (factors?.evidence || 0) + (factors?.logic || 0);
@@ -311,13 +311,13 @@ export class DatabaseService {
       const rSquared = Math.pow(correlation(predictedScores, scores), 2);
 
       // Hypothesis test: URL vs Text scores (t-test approximation)
-      const urlAnalyses = analyses.filter(a => a.contentType === 'url');
-      const textAnalyses = analyses.filter(a => a.contentType === 'text');
+      const urlAnalyses = analyses.filter((a: any) => a.contentType === 'url');
+      const textAnalyses = analyses.filter((a: any) => a.contentType === 'text');
 
       let urlVsTextTest = null;
       if (urlAnalyses.length > 0 && textAnalyses.length > 0) {
-        const urlScores = urlAnalyses.map(a => a.score);
-        const textScores = textAnalyses.map(a => a.score);
+        const urlScores = urlAnalyses.map((a: any) => a.score);
+        const textScores = textAnalyses.map((a: any) => a.score);
         const urlMean = mean(urlScores);
         const textMean = mean(textScores);
         const diff = Math.abs(urlMean - textMean);
@@ -336,18 +336,18 @@ export class DatabaseService {
       }
 
       // Skewness (measure of asymmetry)
-      const skewness = scores.reduce((sum, x) => sum + Math.pow((x - scoreMean) / scoreStdDev, 3), 0) / scores.length;
+      const skewness = scores.reduce((sum: number, x: number) => sum + Math.pow((x - scoreMean) / scoreStdDev, 3), 0) / scores.length;
 
       // Z-scores for outlier detection
       const outliers = analyses
-        .map((a, i) => ({
+        .map((a: any, i: number) => ({
           id: a.id,
           score: a.score,
           zScore: (a.score - scoreMean) / scoreStdDev,
           domain: a.domain,
         }))
-        .filter(a => Math.abs(a.zScore) > 2) // Outliers are |z| > 2
-        .sort((a, b) => Math.abs(b.zScore) - Math.abs(a.zScore))
+        .filter((a: any) => Math.abs(a.zScore) > 2) // Outliers are |z| > 2
+        .sort((a: any, b: any) => Math.abs(b.zScore) - Math.abs(a.zScore))
         .slice(0, 10);
 
       return {
