@@ -80,6 +80,48 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
         <p className="text-gray-700 leading-relaxed">{result.summary}</p>
       </div>
 
+      {/* Article Citations */}
+      {result.articleCitation && (
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+          <h3 className="text-xl font-semibold text-gray-900 mb-6">
+            📚 Cite This Article
+          </h3>
+          <div className="space-y-6">
+            {/* APA Citation */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-semibold text-gray-800">APA (7th Edition)</h4>
+                <button
+                  onClick={() => navigator.clipboard.writeText(result.articleCitation!.apa)}
+                  className="text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition"
+                >
+                  Copy
+                </button>
+              </div>
+              <p className="text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200 font-mono text-sm">
+                {result.articleCitation.apa}
+              </p>
+            </div>
+
+            {/* MLA Citation */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-semibold text-gray-800">MLA (9th Edition)</h4>
+                <button
+                  onClick={() => navigator.clipboard.writeText(result.articleCitation!.mla)}
+                  className="text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition"
+                >
+                  Copy
+                </button>
+              </div>
+              <p className="text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200 font-mono text-sm">
+                {result.articleCitation.mla}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Warnings */}
       {result.warnings && result.warnings.length > 0 && (
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">

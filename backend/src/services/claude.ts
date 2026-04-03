@@ -191,7 +191,11 @@ You MUST respond with valid JSON only:
     "evidence": <0-25>,
     "logic": <0-25>
   },
-  "warnings": ["<optional warning messages>"]
+  "warnings": ["<optional warning messages>"],
+  "articleCitation": {
+    "apa": "<APA 7th edition formatted citation>",
+    "mla": "<MLA 9th edition formatted citation>"
+  }
 }`;
   }
 
@@ -219,7 +223,15 @@ You MUST respond with valid JSON only:
       prompt += `EXPLAINABILITY MODE: Provide extra detail in your analysis. In the summary, briefly explain your reasoning for each scoring factor.\n\n`;
     }
 
-    prompt += `Provide your credibility assessment as JSON only. No additional text outside the JSON.`;
+    prompt += `IMPORTANT: Generate properly formatted academic citations for this article/content:
+- Extract the title, author(s), publication date, publisher/domain, and URL from the content
+- Format an APA 7th edition citation
+- Format an MLA 9th edition citation
+- Include today's access date if it's a web article
+- If author is unknown, start with the title
+- Use proper formatting (italics for titles, punctuation, etc.)
+
+Provide your credibility assessment as JSON only. No additional text outside the JSON.`;
 
     return prompt;
   }
@@ -254,6 +266,7 @@ You MUST respond with valid JSON only:
           logic: parsed.factors?.logic || 0,
         },
         warnings: parsed.warnings || [],
+        articleCitation: parsed.articleCitation || undefined,
       };
     } catch (error) {
       logger.error('Failed to parse Claude response', { error, responseText });

@@ -39,6 +39,10 @@ export interface AnalysisResult {
   warnings?: string[];
   processingSteps?: ProcessingStep[];
   createdAt?: Date;
+  articleCitation?: {
+    apa: string;
+    mla: string;
+  };
 }
 
 export interface ProcessingStep {
