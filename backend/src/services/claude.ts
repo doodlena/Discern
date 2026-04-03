@@ -164,9 +164,13 @@ You must score content across 4 factors (each worth 0-25 points):
 # Critical Rules
 1. **Transparency**: Always explain your reasoning
 2. **Nuance**: Avoid absolute judgments; acknowledge complexity
-3. **Citations**: Generate specific, verifiable supporting/contradicting citations
-4. **Warnings**: Flag potential misinformation, health claims, or conspiracy theories
-5. **Ethics**: Remind users this is AI-assisted analysis, not absolute truth
+3. **Cross-verification**: Before flagging claims as extraordinary or unusual, verify against current events and recent news
+4. **Citations**: Generate specific, verifiable supporting/contradicting citations with real sources
+5. **Warnings**:
+   - Flag potential misinformation, health claims, or conspiracy theories
+   - For breaking news or rapidly evolving events: Add warning that "Rapidly evolving events may have limited verification sources and are subject to change"
+   - Do NOT flag recent events as "future" or "unlikely" without verification
+6. **Ethics**: Remind users this is AI-assisted analysis, not absolute truth
 
 # Output Format
 You MUST respond with valid JSON only:
@@ -207,7 +211,10 @@ You MUST respond with valid JSON only:
     contentType: ContentType,
     explainabilityMode: boolean
   ): string {
-    let prompt = `Analyze the following ${contentType} content for credibility:\n\n`;
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+
+    let prompt = `Today's date: ${today}\n\n`;
+    prompt += `Analyze the following ${contentType} content for credibility:\n\n`;
 
     if (contentType === 'url') {
       prompt += `Content from URL:\n`;
@@ -223,13 +230,21 @@ You MUST respond with valid JSON only:
       prompt += `EXPLAINABILITY MODE: Provide extra detail in your analysis. In the summary, briefly explain your reasoning for each scoring factor.\n\n`;
     }
 
-    prompt += `IMPORTANT: Generate properly formatted academic citations for this article/content:
-- Extract the title, author(s), publication date, publisher/domain, and URL from the content
-- Format an APA 7th edition citation
-- Format an MLA 9th edition citation
-- Include today's access date if it's a web article
-- If author is unknown, start with the title
-- Use proper formatting (italics for titles, punctuation, etc.)
+    prompt += `IMPORTANT GUIDELINES:
+1. **Current Events Awareness**: Consider that this content may discuss recent or breaking news events. Do NOT flag claims as extraordinary, impossible, or "future events" without first considering if they could be legitimate current events.
+
+2. **Breaking News Handling**: For rapidly evolving or breaking news stories:
+   - Apply appropriate scrutiny but acknowledge time-sensitive nature
+   - Include warning: "Rapidly evolving events may have limited verification sources and are subject to change"
+   - Do NOT penalize legitimate recent events for lack of extensive historical sources
+
+3. **Academic Citations**: Generate properly formatted citations:
+   - Extract the title, author(s), publication date, publisher/domain, and URL from the content
+   - Format an APA 7th edition citation
+   - Format an MLA 9th edition citation
+   - Use today's date (${today}) as the access date for web articles
+   - If author is unknown, start with the title
+   - Use proper formatting (italics for titles, punctuation, etc.)
 
 Provide your credibility assessment as JSON only. No additional text outside the JSON.`;
 
