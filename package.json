@@ -1,0 +1,36 @@
+{
+  "name": "discern",
+  "version": "1.0.0",
+  "description": "AI-powered credibility scoring system for online content",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "extension",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:shared && npm run build:backend && npm run build:frontend && npm run build:extension",
+    "build:shared": "cd shared && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build:extension": "cd extension && npm run build",
+    "db:migrate": "cd backend && npm run db:migrate",
+    "db:seed": "cd backend && npm run db:seed"
+  },
+  "keywords": [
+    "ai",
+    "credibility",
+    "misinformation",
+    "fact-checking",
+    "transparency"
+  ],
+  "author": "DISCERN Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
