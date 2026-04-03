@@ -59,7 +59,7 @@ export class ClaudeService {
 
       const response = await getClient().messages.create({
         model: MODEL,
-        max_tokens: 2048, // Reduced for faster performance
+        max_tokens: 2048,
         temperature: 0.3, // Lower temperature for consistent, factual analysis
         system: systemPrompt,
         messages: [
