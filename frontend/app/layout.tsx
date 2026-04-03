@@ -1,10 +1,13 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'DISCERN - Credibility Analysis',
-  description: 'Advanced credibility analysis that reveals bias, verifies sources, and assesses evidence quality.',
-  keywords: ['credibility', 'fact-checking', 'transparency', 'misinformation', 'AI analysis'],
+  description: 'Instant credibility analysis for the information age.',
+  keywords: ['credibility', 'fact-checking', 'transparency', 'misinformation'],
 }
 
 export default function RootLayout({
@@ -14,42 +17,42 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-white/90 border-b border-stone-200">
-          <div className="max-w-[1600px] mx-auto px-6">
-            <div className="flex justify-between items-center h-16">
+        <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-white/80 border-b border-black/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex justify-between items-center h-14">
               {/* Logo */}
-              <a href="/" className="flex items-center gap-3 group">
-                <div className="w-8 h-8 rounded-lg bg-stone-950 flex items-center justify-center">
+              <a href="/" className="flex items-center gap-2 group flex-shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#0071e3] to-[#0055cc] flex items-center justify-center">
                   <span className="text-white font-bold text-sm">D</span>
                 </div>
-                <span className="text-editorial text-xl font-normal text-stone-950 tracking-tight">DISCERN</span>
+                <span className="text-lg sm:text-xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
               </a>
 
               {/* Navigation Links */}
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-3 sm:gap-6 md:gap-8">
                 <a
                   href="/"
-                  className="text-ui text-sm font-medium text-stone-700 hover:text-stone-950 transition-refined"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
                   Home
                 </a>
                 <a
                   href="/analyze"
-                  className="text-ui text-sm font-medium text-stone-700 hover:text-stone-950 transition-refined"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
                   Analyze
                 </a>
                 <a
                   href="/about"
-                  className="text-ui text-sm font-medium text-stone-700 hover:text-stone-950 transition-refined"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
                   About
                 </a>
                 <a
                   href="/admin"
-                  className="text-ui text-sm font-medium text-stone-700 hover:text-stone-950 transition-refined"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
                   Statistics
                 </a>
@@ -58,28 +61,28 @@ export default function RootLayout({
           </div>
         </nav>
 
-        {/* Main Content */}
-        <main className="pt-16">{children}</main>
+        {/* Add padding-top to account for fixed nav */}
+        <main className="pt-14">{children}</main>
 
         {/* Footer */}
-        <footer className="border-t border-stone-200 bg-white">
-          <div className="max-w-[1600px] mx-auto px-6 py-20">
-            <div className="text-center space-y-6">
-              <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-lg bg-stone-950 flex items-center justify-center">
-                  <span className="text-white font-bold">D</span>
+        <footer className="bg-[#f5f5f7] border-t border-black/5">
+          <div className="max-w-7xl mx-auto px-6 py-16">
+            <div className="text-center space-y-4">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0071e3] to-[#0055cc] flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">D</span>
                 </div>
-                <span className="text-editorial text-3xl font-normal text-stone-950">DISCERN</span>
+                <span className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
               </div>
 
-              <p className="text-ui text-sm text-stone-600 max-w-md mx-auto leading-relaxed">
-                Advanced credibility analysis powered by Anthropic Claude Sonnet 4.6.
-                Built for transparency, designed for trust.
+              <p className="text-sm text-[#6e6e73] max-w-md mx-auto">
+                Advanced credibility analysis powered by Anthropic Claude.
+                Built for transparency. Designed for trust.
               </p>
 
-              <div className="pt-8 border-t border-stone-200 mt-10">
-                <p className="text-ui text-xs text-stone-500">
-                  Presidential AI Challenge 2024 • Always verify important information independently
+              <div className="pt-6 border-t border-black/5 mt-8">
+                <p className="text-xs text-[#86868b]">
+                  Always verify important information independently.
                 </p>
               </div>
             </div>
