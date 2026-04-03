@@ -45,10 +45,22 @@ export default function CitationPanel({ citations }: Props) {
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             <p className="text-sm text-gray-700">
               <strong>Source:</strong> {citation.source}
             </p>
+
+            {citation.reliabilityReason && (
+              <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                <strong>Reliability:</strong> {citation.reliabilityReason}
+              </p>
+            )}
+
+            {citation.supportsReason && (
+              <p className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg">
+                <strong>{citation.supports ? 'Why it supports:' : 'Why it contradicts:'}</strong> {citation.supportsReason}
+              </p>
+            )}
 
             {citation.excerpt && (
               <p className="text-sm text-gray-600 italic bg-gray-50 p-3 rounded border-l-4 border-gray-300">

@@ -17,7 +17,9 @@ export interface Citation {
   claim: string;
   source: string;
   reliability: CitationReliability;
+  reliabilityReason?: string; // Explanation of reliability rating
   supports: boolean; // true = supports claim, false = contradicts
+  supportsReason?: string; // Explanation of support/contradict
   excerpt?: string;
   url?: string;
 }

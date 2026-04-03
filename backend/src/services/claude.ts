@@ -59,7 +59,7 @@ export class ClaudeService {
 
       const response = await getClient().messages.create({
         model: MODEL,
-        max_tokens: 4096,
+        max_tokens: 2048, // Reduced for faster performance
         temperature: 0.3, // Lower temperature for consistent, factual analysis
         system: systemPrompt,
         messages: [
@@ -184,7 +184,9 @@ You MUST respond with valid JSON only:
       "claim": "<key claim from content>",
       "source": "<credible source name>",
       "reliability": "low" | "medium" | "high",
+      "reliabilityReason": "<1 sentence explaining why this reliability rating>",
       "supports": true | false,
+      "supportsReason": "<1 sentence explaining how it supports or contradicts>",
       "excerpt": "<optional relevant quote>",
       "url": "<optional source URL>"
     }
@@ -200,7 +202,11 @@ You MUST respond with valid JSON only:
     "apa": "<APA 7th edition formatted citation>",
     "mla": "<MLA 9th edition formatted citation>"
   }
-}`;
+}
+
+IMPORTANT: For each citation, you MUST include:
+- "reliabilityReason": Brief explanation of why the source has this reliability rating
+- "supportsReason": Brief explanation of how the source supports or contradicts the claim`;
   }
 
   /**
