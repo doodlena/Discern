@@ -70,15 +70,15 @@ function AnalyzeContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fbfbfd] py-20 px-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen py-16 md:py-24 px-6">
+      <div className="max-w-[1400px] mx-auto">
         {/* Header */}
         {!result && (
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-semibold text-[#1d1d1f] mb-6 tracking-tight">
+          <div className="mb-16">
+            <h1 className="text-editorial text-4xl md:text-5xl lg:text-6xl text-stone-950 mb-4">
               Analyze content
             </h1>
-            <p className="text-xl text-[#6e6e73] max-w-3xl mx-auto leading-relaxed">
+            <p className="text-ui text-lg md:text-xl text-stone-600 max-w-2xl">
               Paste a URL, enter text, or upload a PDF for comprehensive credibility analysis
             </p>
           </div>
@@ -95,14 +95,22 @@ function AnalyzeContent() {
 
         {/* Error Display */}
         {error && (
-          <div className="max-w-3xl mx-auto mb-8 p-6 bg-red-50 border border-red-200 rounded-[28px]">
-            <p className="text-red-800 font-medium">Error: {error}</p>
+          <div className="max-w-4xl mx-auto mb-8 p-6 bg-red-50 border border-red-200 rounded-xl">
+            <div className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="text-ui text-sm font-medium text-red-900">Error</p>
+                <p className="text-ui text-sm text-red-800 mt-1">{error}</p>
+              </div>
+            </div>
           </div>
         )}
 
         {/* Result Display */}
         {result && (
-          <div className="animate-fade-in">
+          <div className="animate-fade-up">
             <CredibilityResult
               result={result}
               onAnalyzeNew={() => {
@@ -120,10 +128,10 @@ function AnalyzeContent() {
 export default function AnalyzePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#fbfbfd]">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-[#0071e3] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-lg text-[#6e6e73]">Loading...</p>
+          <div className="w-12 h-12 border-2 border-stone-950 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-ui text-sm text-stone-600">Loading...</p>
         </div>
       </div>
     }>

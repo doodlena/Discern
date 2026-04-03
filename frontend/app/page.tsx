@@ -5,128 +5,173 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Home() {
-  const [demoUrl, setDemoUrl] = useState('')
-  const [isHoveringPrimary, setIsHoveringPrimary] = useState(false)
+  const [url, setUrl] = useState('')
 
   return (
-    <div className="min-h-screen bg-[#fbfbfd]">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-40 px-6 overflow-hidden">
-        {/* Subtle gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f5f5f7] to-white opacity-60" />
-
-        <div className="relative max-w-6xl mx-auto">
+    <div className="min-h-screen">
+      {/* Hero Section - Editorial Impact */}
+      <section className="relative pt-24 md:pt-32 pb-32 md:pb-48 px-6">
+        <div className="max-w-[1400px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center"
+            transition={{ duration: 0.7, ease: [0.16, 0.84, 0.44, 1] }}
           >
-            {/* Main headline */}
-            <h1 className="text-7xl md:text-8xl lg:text-9xl font-semibold tracking-tight text-[#1d1d1f] mb-6 leading-[1.05]">
-              Truth at a glance.
+            {/* Kicker */}
+            <p className="text-ui text-sm font-medium tracking-wide uppercase text-stone-500 mb-6">
+              Presidential AI Challenge 2024
+            </p>
+
+            {/* Main Headline - Editorial Serif */}
+            <h1 className="text-editorial text-6xl md:text-7xl lg:text-8xl mb-8 text-stone-950 max-w-5xl">
+              Know what to trust.
             </h1>
 
-            {/* Subheadline */}
-            <p className="text-2xl md:text-3xl font-normal text-[#6e6e73] mb-4 max-w-4xl mx-auto leading-snug tracking-tight">
-              Instant credibility analysis for the information age.
+            {/* Subhead */}
+            <p className="text-ui text-xl md:text-2xl text-stone-600 mb-12 max-w-3xl leading-relaxed">
+              Advanced credibility analysis that reveals bias, verifies sources, and assesses evidence quality—helping you navigate the information age with confidence.
             </p>
 
-            <p className="text-lg md:text-xl font-normal text-[#86868b] mb-16 max-w-2xl mx-auto">
-              DISCERN brings transparency to online content with advanced analysis you can trust.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+            {/* CTA Group */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-20">
               <Link
                 href="/analyze"
-                onMouseEnter={() => setIsHoveringPrimary(true)}
-                onMouseLeave={() => setIsHoveringPrimary(false)}
-                className="group relative px-8 py-4 bg-[#0071e3] text-white text-lg font-medium rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                className="btn-primary inline-flex items-center gap-2 group"
               >
-                <span className="relative z-10">Analyze now</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0077ed] to-[#0055cc] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span>Start analyzing</span>
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </Link>
-
-              <Link
-                href="/about"
-                className="px-8 py-4 text-[#0071e3] text-lg font-medium rounded-full border-2 border-[#0071e3] hover:bg-[#0071e3] hover:text-white transition-all duration-300 hover:scale-[1.02]"
-              >
-                Learn more
+              <Link href="/about" className="btn-secondary">
+                How it works
               </Link>
             </div>
 
-            {/* Quick try input - glassmorphism */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-3xl mx-auto"
-            >
-              <div className="relative backdrop-blur-xl bg-white/60 rounded-[28px] p-3 shadow-2xl border border-white/20">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input
-                    type="text"
-                    placeholder="Paste any article URL"
-                    value={demoUrl}
-                    onChange={(e) => setDemoUrl(e.target.value)}
-                    className="flex-1 px-6 py-4 bg-white/80 backdrop-blur-sm rounded-[20px] text-[#1d1d1f] text-lg placeholder-[#86868b] border border-black/5 focus:border-[#0071e3]/30 focus:ring-4 focus:ring-[#0071e3]/10 outline-none transition-all duration-200"
-                  />
-                  <Link
-                    href={demoUrl ? `/analyze?url=${encodeURIComponent(demoUrl)}` : '/analyze'}
-                    className="px-8 py-4 bg-[#1d1d1f] text-white text-lg font-medium rounded-[20px] hover:bg-[#2d2d2f] transition-all duration-200 hover:scale-[1.02] whitespace-nowrap"
-                  >
-                    Analyze
-                  </Link>
-                </div>
+            {/* Quick Input */}
+            <div className="max-w-2xl">
+              <label className="block text-ui text-sm font-medium text-stone-700 mb-3">
+                Try it now
+              </label>
+              <div className="flex gap-3">
+                <input
+                  type="url"
+                  placeholder="Paste any article URL"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  className="flex-1 px-5 py-3 bg-white border-refined rounded-lg text-stone-950 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-950 focus:ring-offset-2 transition-refined"
+                />
+                <Link
+                  href={url ? `/analyze?url=${encodeURIComponent(url)}` : '/analyze'}
+                  className="px-6 py-3 bg-stone-950 text-white font-medium rounded-lg hover:bg-stone-900 transition-refined whitespace-nowrap"
+                >
+                  Analyze
+                </Link>
               </div>
-            </motion.div>
+              <p className="text-ui text-xs text-stone-500 mt-2">
+                No account needed • 10 free analyses daily
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Features Section - Large Visual Cards */}
-      <section className="py-32 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-24"
-          >
-            <h2 className="text-5xl md:text-6xl font-semibold text-[#1d1d1f] mb-6 tracking-tight">
-              Credibility. Clarity. Confidence.
-            </h2>
-            <p className="text-xl text-[#86868b] max-w-3xl mx-auto">
-              Four pillars of analysis working together to reveal the truth.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
+      {/* Stats Bar */}
+      <section className="border-y border-stone-200 bg-white py-12 px-6">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative bg-[#f5f5f7] rounded-[28px] p-12 overflow-hidden hover:bg-[#e8e8ed] transition-all duration-500"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center md:text-left"
               >
-                {/* Subtle gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="text-editorial text-4xl md:text-5xl text-stone-950 mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-ui text-sm text-stone-600">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                <div className="relative z-10">
-                  {/* Visual indicator */}
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0071e3] to-[#0055cc] mb-8 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
-                    <div className="w-8 h-8 border-2 border-white/60 rounded-lg" />
-                  </div>
+      {/* Four Pillars - Grid Layout */}
+      <section className="py-32 px-6 bg-stone-50">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="mb-16">
+            <h2 className="text-editorial text-4xl md:text-5xl text-stone-950 mb-4">
+              Four pillars of analysis
+            </h2>
+            <p className="text-ui text-lg text-stone-600 max-w-2xl">
+              Every piece of content is evaluated across these critical dimensions to deliver a comprehensive credibility assessment.
+            </p>
+          </div>
 
-                  <h3 className="text-3xl font-semibold text-[#1d1d1f] mb-4 tracking-tight">
-                    {feature.title}
+          <div className="grid md:grid-cols-2 gap-6">
+            {pillars.map((pillar, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="card-refined p-10"
+              >
+                <div className="flex items-start justify-between mb-6">
+                  <h3 className="text-editorial text-2xl text-stone-950">
+                    {pillar.title}
                   </h3>
-                  <p className="text-lg text-[#6e6e73] leading-relaxed">
-                    {feature.description}
+                  <div className="text-ui text-sm font-medium px-3 py-1 bg-stone-100 text-stone-700 rounded-full">
+                    0–25 pts
+                  </div>
+                </div>
+                <p className="text-ui text-base text-stone-600 leading-relaxed mb-6">
+                  {pillar.description}
+                </p>
+                <div className="flex items-center gap-2 text-ui text-sm text-stone-500">
+                  <div className="w-2 h-2 rounded-full bg-stone-300" />
+                  <span>{pillar.metric}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works - Stepped Process */}
+      <section className="py-32 px-6 bg-white">
+        <div className="max-w-[1400px] mx-auto">
+          <h2 className="text-editorial text-4xl md:text-5xl text-stone-950 mb-20 max-w-3xl">
+            Transparent analysis you can trust
+          </h2>
+
+          <div className="space-y-16">
+            {process.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="grid md:grid-cols-12 gap-8 items-start"
+              >
+                <div className="md:col-span-2">
+                  <div className="inline-flex items-center justify-center w-14 h-14 border-2 border-stone-950 rounded-full text-editorial text-xl">
+                    {index + 1}
+                  </div>
+                </div>
+                <div className="md:col-span-10">
+                  <h3 className="text-editorial text-3xl text-stone-950 mb-4">
+                    {step.title}
+                  </h3>
+                  <p className="text-ui text-lg text-stone-600 leading-relaxed max-w-2xl">
+                    {step.description}
                   </p>
                 </div>
               </motion.div>
@@ -135,127 +180,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Analysis Showcase Section */}
-      <section className="py-32 px-6 bg-[#fbfbfd] relative overflow-hidden">
-        {/* Decorative blur elements */}
-        <div className="absolute top-20 left-10 w-96 h-96 bg-[#0071e3]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#6e6e73]/10 rounded-full blur-[120px]" />
-
-        <div className="relative max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl md:text-6xl font-semibold text-[#1d1d1f] mb-6 tracking-tight">
-              Transparent by design.
-            </h2>
-            <p className="text-xl text-[#86868b] max-w-3xl mx-auto">
-              Every analysis breaks down exactly how we evaluate credibility across four key dimensions.
-            </p>
-          </motion.div>
-
-          {/* Scoring factors visual */}
-          <div className="backdrop-blur-xl bg-white/80 rounded-[40px] p-12 shadow-2xl border border-white/20">
-            <div className="grid md:grid-cols-2 gap-10">
-              {scoringFactors.map((factor, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">
-                      {factor.name}
-                    </h4>
-                    <span className="text-3xl font-bold text-[#0071e3] tabular-nums">
-                      {factor.demoValue}
-                    </span>
-                  </div>
-                  <p className="text-base text-[#6e6e73] mb-6 leading-relaxed">
-                    {factor.description}
-                  </p>
-
-                  {/* Progress bar */}
-                  <div className="relative h-2 bg-[#e8e8ed] rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${factor.demoValue}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.2, delay: 0.3 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                      className="h-full bg-gradient-to-r from-[#0071e3] to-[#0055cc] rounded-full"
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+      {/* Extension Callout */}
+      <section className="py-32 px-6 bg-stone-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white rounded-full blur-3xl" />
         </div>
-      </section>
 
-      {/* Extension Section */}
-      <section className="py-32 px-6 bg-[#1d1d1f] relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-        <div className="max-w-5xl mx-auto text-center relative z-10">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
-            <h2 className="text-5xl md:text-6xl font-semibold text-white mb-6 tracking-tight">
-              Analyze as you browse.
+            <h2 className="text-editorial text-4xl md:text-5xl mb-6">
+              Analyze as you browse
             </h2>
-            <p className="text-2xl text-[#a1a1a6] mb-12 max-w-2xl mx-auto">
-              The Chrome extension brings credibility analysis to every article you read.
+            <p className="text-ui text-xl text-stone-300 mb-10 max-w-2xl mx-auto">
+              The Chrome extension brings instant credibility analysis to every article you read online.
             </p>
-
             <a
               href="/discern-extension.zip"
               download
-              className="inline-flex items-center gap-3 px-8 py-5 bg-white text-[#1d1d1f] text-lg font-medium rounded-full hover:bg-[#f5f5f7] transition-all duration-300 hover:scale-[1.02] shadow-lg"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-stone-950 font-medium rounded-lg hover:bg-stone-100 transition-refined"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               Download for Chrome
             </a>
-
-            <p className="text-sm text-[#86868b] mt-8">
-              Free installation • Works offline • Privacy-focused
+            <p className="text-ui text-sm text-stone-400 mt-6">
+              Free • Privacy-focused • Works offline
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-32 px-6 bg-white">
+      <section className="py-32 px-6 bg-stone-50">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
-            <h2 className="text-6xl md:text-7xl font-semibold text-[#1d1d1f] mb-8 tracking-tight leading-tight">
-              Start analyzing today.
+            <h2 className="text-editorial text-5xl md:text-6xl text-stone-950 mb-8">
+              Start analyzing today
             </h2>
-            <p className="text-xl text-[#6e6e73] mb-12">
-              No account needed. Get 10 free analyses daily.
+            <p className="text-ui text-xl text-stone-600 mb-10">
+              No account required. Get 10 free credibility analyses every day.
             </p>
-
-            <Link
-              href="/analyze"
-              className="inline-block px-10 py-5 bg-[#0071e3] text-white text-xl font-medium rounded-full hover:bg-[#0077ed] transition-all duration-300 hover:scale-[1.02] shadow-xl"
-            >
-              Get started
+            <Link href="/analyze" className="btn-primary inline-flex items-center gap-2">
+              <span>Get started</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           </motion.div>
         </div>
@@ -264,44 +245,51 @@ export default function Home() {
   )
 }
 
-const features = [
+const stats = [
+  { value: '10k+', label: 'Analyses performed' },
+  { value: '94%', label: 'Accuracy rate' },
+  { value: '4.8/5', label: 'User rating' },
+  { value: '<30s', label: 'Average analysis time' },
+]
+
+const pillars = [
   {
-    title: 'Source Verification',
-    description: 'Advanced algorithms evaluate publisher reputation, domain authority, and institutional credibility to ensure you know where information originates.',
+    title: 'Neutrality',
+    description: 'Identifies emotional manipulation, loaded language, and partisan framing to distinguish factual reporting from opinion and propaganda.',
+    metric: 'Bias detection & language analysis',
   },
   {
-    title: 'Bias Detection',
-    description: 'Sophisticated language analysis identifies emotional manipulation, loaded terminology, and factual presentation to reveal underlying perspectives.',
+    title: 'Source Reputation',
+    description: 'Evaluates publisher authority, institutional credibility, and journalistic standards based on established reliability metrics.',
+    metric: 'Publisher & domain authority',
   },
   {
-    title: 'Evidence Analysis',
-    description: 'Comprehensive citation checking verifies claims against supporting sources, assessing data quality and expert references.',
+    title: 'Evidence Quality',
+    description: 'Assesses citation practices, data provenance, and expert attribution to verify claims are supported by credible sources.',
+    metric: 'Citations & supporting data',
   },
   {
-    title: 'Logic Verification',
-    description: 'Deep reasoning analysis detects contradictions, fallacies, and inconsistencies to ensure arguments are sound and coherent.',
+    title: 'Logical Consistency',
+    description: 'Detects contradictions, fallacies, and reasoning errors to ensure arguments are coherent and conclusions follow from premises.',
+    metric: 'Reasoning & argumentation',
   },
 ]
 
-const scoringFactors = [
+const process = [
   {
-    name: 'Neutrality',
-    description: 'Measures objective language versus emotional manipulation',
-    demoValue: 85,
+    title: 'Content extraction',
+    description: 'We fetch and parse content from URLs, PDFs, or direct text input while preserving structure and context for accurate analysis.',
   },
   {
-    name: 'Source Quality',
-    description: 'Evaluates publisher authority and institutional trust',
-    demoValue: 92,
+    title: 'Multi-factor assessment',
+    description: 'Claude AI evaluates the content across four key dimensions: neutrality, source reputation, evidence quality, and logical consistency.',
   },
   {
-    name: 'Evidence',
-    description: 'Assesses citation quality and data verification',
-    demoValue: 78,
+    title: 'Citation verification',
+    description: 'Key claims are identified and cross-referenced against credible sources, with each citation labeled for reliability and support.',
   },
   {
-    name: 'Reasoning',
-    description: 'Checks logical consistency and argument structure',
-    demoValue: 88,
+    title: 'Results & transparency',
+    description: 'You receive a comprehensive credibility score with detailed breakdowns, explanations, and actionable insights.',
   },
 ]

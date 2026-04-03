@@ -9,21 +9,39 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        credibility: {
-          high: '#10b981',
-          medium: '#f59e0b',
-          low: '#ef4444',
+        stone: {
+          50: '#FAFAF9',
+          100: '#F5F5F4',
+          200: '#E7E5E4',
+          300: '#D6D3D1',
+          400: '#A8A29E',
+          500: '#78716C',
+          600: '#57534E',
+          700: '#44403C',
+          800: '#292524',
+          900: '#1C1917',
+          950: '#0A0A0A',
+        },
+        emerald: {
+          50: '#ECFDF5',
+          600: '#059669',
+          700: '#047857',
+          800: '#065F46',
+        },
+        amber: {
+          50: '#FFFBEB',
+          600: '#D97706',
+          700: '#B45309',
+          800: '#92400E',
+        },
+        red: {
+          50: '#FEF2F2',
+          800: '#991B1B',
         },
       },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
+      fontFamily: {
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        serif: ['Instrument Serif', 'Georgia', 'serif'],
       },
     },
   },
