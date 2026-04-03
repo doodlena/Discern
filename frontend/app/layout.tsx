@@ -52,9 +52,9 @@ export default function RootLayout({
                 </a>
                 <a
                   href="/admin"
-                  className="text-xs sm:text-sm font-medium text-[#86868b] hover:text-[#6e6e73] transition-colors duration-200"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
-                  Admin
+                  Statistics
                 </a>
               </div>
             </div>

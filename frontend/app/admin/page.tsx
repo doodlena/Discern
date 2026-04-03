@@ -86,22 +86,22 @@ export default function AdminPage() {
           <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Admin Dashboard
+                Platform Statistics
               </h1>
-              <p className="text-gray-600">Enter password to continue</p>
+              <p className="text-gray-600">Enter access code to continue</p>
             </div>
 
             <form onSubmit={handleLogin}>
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Password
+                  Access Code
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                  placeholder="Enter admin password"
+                  placeholder="Enter access code"
                   required
                 />
               </div>
@@ -133,7 +133,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Admin Dashboard
+              Platform Statistics
             </h1>
             <p className="text-gray-600">
               Analytics and insights for DISCERN platform
