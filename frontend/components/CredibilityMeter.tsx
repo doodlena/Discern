@@ -24,11 +24,11 @@ export default function CredibilityMeter({ score }: Props) {
   const rotation = (animatedScore / 100) * 180 - 90
 
   return (
-    <div className="relative w-full h-40">
+    <div className="relative w-full h-44 overflow-visible">
       {/* Background Arc */}
-      <svg className="w-full h-full" viewBox="0 0 200 100">
+      <svg className="w-full h-full overflow-visible" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid meet">
         <path
-          d="M 10 90 A 80 80 0 0 1 190 90"
+          d="M 10 100 A 80 80 0 0 1 190 100"
           fill="none"
           stroke="#e5e7eb"
           strokeWidth="20"
@@ -36,7 +36,7 @@ export default function CredibilityMeter({ score }: Props) {
         />
         {/* Colored Arc */}
         <motion.path
-          d="M 10 90 A 80 80 0 0 1 190 90"
+          d="M 10 100 A 80 80 0 0 1 190 100"
           fill="none"
           stroke={getColor(animatedScore)}
           strokeWidth="20"
@@ -49,7 +49,7 @@ export default function CredibilityMeter({ score }: Props) {
         {/* Needle */}
         <motion.line
           x1="100"
-          y1="90"
+          y1="100"
           x2="100"
           y2="30"
           stroke="#374151"
@@ -58,13 +58,13 @@ export default function CredibilityMeter({ score }: Props) {
           initial={{ rotate: -90 }}
           animate={{ rotate: rotation }}
           transition={{ duration: 1.5, ease: 'easeOut' }}
-          style={{ transformOrigin: '100px 90px' }}
+          style={{ transformOrigin: '100px 100px' }}
         />
-        <circle cx="100" cy="90" r="5" fill="#374151" />
+        <circle cx="100" cy="100" r="5" fill="#374151" />
       </svg>
 
       {/* Labels */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 px-2">
+      <div className="absolute bottom-2 left-0 right-0 flex justify-between text-xs text-gray-500 px-2">
         <span>0</span>
         <span>50</span>
         <span>100</span>

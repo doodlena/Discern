@@ -20,39 +20,39 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* Navigation */}
         <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-white/80 border-b border-black/5">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center h-14">
               {/* Logo */}
-              <a href="/" className="flex items-center gap-2 group">
+              <a href="/" className="flex items-center gap-2 group flex-shrink-0">
                 <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#0071e3] to-[#0055cc] flex items-center justify-center">
                   <span className="text-white font-bold text-sm">D</span>
                 </div>
-                <span className="text-xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
+                <span className="text-lg sm:text-xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
               </a>
 
               {/* Navigation Links */}
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-3 sm:gap-6 md:gap-8">
                 <a
                   href="/"
-                  className="text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
                   Home
                 </a>
                 <a
                   href="/analyze"
-                  className="text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
                   Analyze
                 </a>
                 <a
                   href="/about"
-                  className="text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
+                  className="text-xs sm:text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
                 >
                   About
                 </a>
                 <a
                   href="/admin"
-                  className="text-sm font-medium text-[#86868b] hover:text-[#6e6e73] transition-colors duration-200"
+                  className="text-xs sm:text-sm font-medium text-[#86868b] hover:text-[#6e6e73] transition-colors duration-200"
                 >
                   Admin
                 </a>
