@@ -16,17 +16,18 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
   const [feedbackComment, setFeedbackComment] = useState('')
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
   const [submittingFeedback, setSubmittingFeedback] = useState(false)
+
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-600'
-    if (score >= 50) return 'text-yellow-600'
+    if (score >= 50) return 'text-amber-600'
     return 'text-red-600'
   }
 
   const getConfidenceBadge = (confidence: string) => {
     const colors = {
-      high: 'bg-green-100 text-green-800',
-      medium: 'bg-yellow-100 text-yellow-800',
-      low: 'bg-red-100 text-red-800',
+      high: 'bg-green-50 text-green-700 border-green-200',
+      medium: 'bg-amber-50 text-amber-700 border-amber-200',
+      low: 'bg-red-50 text-red-700 border-red-200',
     }
     return colors[confidence as keyof typeof colors] || colors.medium
   }
@@ -66,94 +67,104 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-6 pb-20">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-12">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Analysis Complete</h2>
-          <p className="text-gray-600 mt-1">
-            Credibility assessment with AI-powered analysis
+          <h2 className="text-4xl md:text-5xl font-semibold text-[#1d1d1f] tracking-tight mb-2">
+            Analysis complete
+          </h2>
+          <p className="text-lg text-[#6e6e73]">
+            Comprehensive credibility assessment
           </p>
         </div>
         <button
           onClick={onAnalyzeNew}
-          className="px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition"
+          className="px-6 py-3 bg-[#f5f5f7] text-[#1d1d1f] font-medium rounded-full hover:bg-[#e8e8ed] transition-all duration-200 hover:scale-[1.02]"
         >
-          Analyze New Content
+          New analysis
         </button>
       </div>
 
-      {/* Score Overview */}
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-gray-900">
-              Credibility Score
-            </h3>
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${getConfidenceBadge(
-                result.confidence
-              )}`}
-            >
-              {result.confidence} confidence
-            </span>
-          </div>
-          <CredibilityMeter score={result.score} />
-          <p className={`text-6xl font-bold text-center mt-6 ${getScoreColor(result.score)}`}>
-            {result.score}
-            <span className="text-2xl text-gray-400">/100</span>
-          </p>
-        </div>
+      {/* Score Overview - Large Featured Card */}
+      <div className="backdrop-blur-xl bg-white/90 rounded-[40px] p-12 shadow-2xl border border-black/5 mb-8">
+        <div className="grid md:grid-cols-2 gap-16">
+          {/* Score Display */}
+          <div className="flex flex-col justify-center">
+            <div className="flex items-center gap-3 mb-8">
+              <h3 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">
+                Credibility Score
+              </h3>
+              <span
+                className={`px-4 py-1.5 rounded-full text-sm font-medium border ${getConfidenceBadge(
+                  result.confidence
+                )}`}
+              >
+                {result.confidence} confidence
+              </span>
+            </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
-            Scoring Breakdown
-          </h3>
-          <FactorsChart factors={result.factors} />
+            <div className="mb-8">
+              <CredibilityMeter score={result.score} />
+            </div>
+
+            <div className={`text-8xl font-bold tracking-tight ${getScoreColor(result.score)}`}>
+              {result.score}
+              <span className="text-4xl text-[#86868b] font-normal">/100</span>
+            </div>
+          </div>
+
+          {/* Factors Breakdown */}
+          <div>
+            <h3 className="text-2xl font-semibold text-[#1d1d1f] mb-8 tracking-tight">
+              Analysis Factors
+            </h3>
+            <FactorsChart factors={result.factors} />
+          </div>
         </div>
       </div>
 
       {/* Summary */}
-      <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">Summary</h3>
-        <p className="text-gray-700 leading-relaxed">{result.summary}</p>
+      <div className="backdrop-blur-xl bg-white/90 rounded-[40px] p-12 shadow-xl border border-black/5">
+        <h3 className="text-2xl font-semibold text-[#1d1d1f] mb-6 tracking-tight">Summary</h3>
+        <p className="text-lg text-[#6e6e73] leading-relaxed">{result.summary}</p>
       </div>
 
       {/* Article Citations */}
       {result.articleCitation && (
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">
-            📚 Cite This Article
+        <div className="backdrop-blur-xl bg-white/90 rounded-[40px] p-12 shadow-xl border border-black/5">
+          <h3 className="text-2xl font-semibold text-[#1d1d1f] mb-8 tracking-tight">
+            Citation Formats
           </h3>
-          <div className="space-y-6">
+          <div className="space-y-8">
             {/* APA Citation */}
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold text-gray-800">APA (7th Edition)</h4>
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-lg font-semibold text-[#1d1d1f]">APA (7th Edition)</h4>
                 <button
                   onClick={() => navigator.clipboard.writeText(result.articleCitation!.apa)}
-                  className="text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition"
+                  className="text-sm px-4 py-2 bg-[#f5f5f7] text-[#1d1d1f] rounded-full hover:bg-[#e8e8ed] transition-all duration-200"
                 >
                   Copy
                 </button>
               </div>
-              <p className="text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200 font-mono text-sm">
+              <p className="text-base text-[#6e6e73] bg-[#f5f5f7] p-6 rounded-[20px] border border-black/5 font-mono leading-relaxed">
                 {result.articleCitation.apa}
               </p>
             </div>
 
             {/* MLA Citation */}
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold text-gray-800">MLA (9th Edition)</h4>
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-lg font-semibold text-[#1d1d1f]">MLA (9th Edition)</h4>
                 <button
                   onClick={() => navigator.clipboard.writeText(result.articleCitation!.mla)}
-                  className="text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition"
+                  className="text-sm px-4 py-2 bg-[#f5f5f7] text-[#1d1d1f] rounded-full hover:bg-[#e8e8ed] transition-all duration-200"
                 >
                   Copy
                 </button>
               </div>
-              <p className="text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200 font-mono text-sm">
+              <p className="text-base text-[#6e6e73] bg-[#f5f5f7] p-6 rounded-[20px] border border-black/5 font-mono leading-relaxed">
                 {result.articleCitation.mla}
               </p>
             </div>
@@ -163,13 +174,13 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
 
       {/* Warnings */}
       {result.warnings && result.warnings.length > 0 && (
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold text-yellow-800 mb-3 flex items-center gap-2">
-            ⚠️ Warnings
+        <div className="bg-amber-50 border-l-4 border-amber-500 p-8 rounded-[28px]">
+          <h3 className="text-xl font-semibold text-amber-900 mb-4 tracking-tight">
+            Important Considerations
           </h3>
           <ul className="space-y-2">
             {result.warnings.map((warning, index) => (
-              <li key={index} className="text-yellow-800">
+              <li key={index} className="text-amber-800 leading-relaxed">
                 • {warning}
               </li>
             ))}
@@ -179,31 +190,31 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
 
       {/* Citations */}
       {result.citations && result.citations.length > 0 && (
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">
-            Citations & Verification
+        <div className="backdrop-blur-xl bg-white/90 rounded-[40px] p-12 shadow-xl border border-black/5">
+          <h3 className="text-2xl font-semibold text-[#1d1d1f] mb-8 tracking-tight">
+            Source Verification
           </h3>
           <CitationPanel citations={result.citations} />
         </div>
       )}
 
-      {/* Processing Steps (Explainability Mode) */}
+      {/* Processing Steps */}
       {result.processingSteps && result.processingSteps.length > 0 && (
-        <div className="bg-gray-50 rounded-xl p-8 border border-gray-200">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">
-            🔍 Explainability: Processing Steps
+        <div className="bg-[#f5f5f7] rounded-[40px] p-12 border border-black/5">
+          <h3 className="text-2xl font-semibold text-[#1d1d1f] mb-8 tracking-tight">
+            Analysis Process
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-6">
             {result.processingSteps.map((step, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+              <div key={index} className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-[#0071e3] text-white rounded-full flex items-center justify-center text-sm font-semibold">
                   {index + 1}
                 </div>
-                <div>
-                  <p className="font-medium text-gray-900">{step.step}</p>
-                  <p className="text-sm text-gray-600">{step.description}</p>
+                <div className="flex-1">
+                  <p className="text-lg font-medium text-[#1d1d1f] mb-1">{step.step}</p>
+                  <p className="text-base text-[#6e6e73]">{step.description}</p>
                   {step.details && (
-                    <pre className="text-xs text-gray-500 mt-1">
+                    <pre className="text-xs text-[#86868b] mt-2 overflow-x-auto">
                       {JSON.stringify(step.details, null, 2)}
                     </pre>
                   )}
@@ -215,9 +226,9 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
       )}
 
       {/* User Feedback */}
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">
-          How was this analysis?
+      <div className="backdrop-blur-xl bg-gradient-to-br from-[#f5f5f7] to-white rounded-[40px] p-12 border border-black/5">
+        <h3 className="text-2xl font-semibold text-[#1d1d1f] mb-6 tracking-tight">
+          Was this helpful?
         </h3>
 
         {!feedbackSubmitted ? (
@@ -226,39 +237,39 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => handleThumbsClick(true)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition ${
+                className={`flex items-center gap-3 px-6 py-4 rounded-full font-medium transition-all duration-200 ${
                   thumbsUp === true
-                    ? 'bg-green-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-green-50 border border-gray-300'
+                    ? 'bg-[#0071e3] text-white shadow-lg'
+                    : 'bg-white text-[#1d1d1f] hover:bg-[#f5f5f7] border border-black/10'
                 }`}
               >
-                <span className="text-2xl">👍</span>
+                <span className="text-xl">👍</span>
                 <span>Helpful</span>
               </button>
               <button
                 onClick={() => handleThumbsClick(false)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition ${
+                className={`flex items-center gap-3 px-6 py-4 rounded-full font-medium transition-all duration-200 ${
                   thumbsUp === false
-                    ? 'bg-red-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-red-50 border border-gray-300'
+                    ? 'bg-[#1d1d1f] text-white shadow-lg'
+                    : 'bg-white text-[#1d1d1f] hover:bg-[#f5f5f7] border border-black/10'
                 }`}
               >
-                <span className="text-2xl">👎</span>
-                <span>Not Helpful</span>
+                <span className="text-xl">👎</span>
+                <span>Not helpful</span>
               </button>
             </div>
 
             {/* Feedback Comment */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Have suggestions or feedback? (Optional)
+              <label className="block text-sm font-medium text-[#6e6e73] mb-3">
+                Share your thoughts (optional)
               </label>
               <textarea
                 value={feedbackComment}
                 onChange={(e) => setFeedbackComment(e.target.value)}
-                placeholder="Tell us what you think..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none"
-                rows={3}
+                placeholder="Tell us how we can improve..."
+                className="w-full px-6 py-4 border border-black/10 rounded-[20px] bg-white text-[#1d1d1f] placeholder-[#86868b] focus:ring-4 focus:ring-[#0071e3]/10 focus:border-[#0071e3]/30 outline-none resize-none transition-all duration-200"
+                rows={4}
               />
             </div>
 
@@ -266,18 +277,18 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
             <button
               onClick={handleFeedbackSubmit}
               disabled={submittingFeedback || (thumbsUp === null && !feedbackComment.trim())}
-              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-4 bg-[#0071e3] text-white font-medium rounded-full hover:bg-[#0077ed] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-[1.02]"
             >
-              {submittingFeedback ? 'Submitting...' : 'Submit Feedback'}
+              {submittingFeedback ? 'Submitting...' : 'Submit feedback'}
             </button>
           </div>
         ) : (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-            <div className="text-4xl mb-2">✅</div>
-            <p className="text-green-800 font-medium">
-              Thank you for your feedback!
+          <div className="bg-white rounded-[28px] p-10 text-center border border-green-200">
+            <div className="text-5xl mb-4">✓</div>
+            <p className="text-xl font-medium text-green-700 mb-2">
+              Thank you for your feedback
             </p>
-            <p className="text-sm text-green-600 mt-1">
+            <p className="text-sm text-[#6e6e73]">
               Your input helps us improve DISCERN
             </p>
           </div>
@@ -285,11 +296,10 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
       </div>
 
       {/* Disclaimer */}
-      <div className="bg-gray-100 rounded-xl p-6 border border-gray-300">
-        <p className="text-sm text-gray-700 text-center">
-          <strong>Disclaimer:</strong> This is an AI-assisted credibility analysis, not
-          absolute truth. Always verify important information from multiple sources and
-          use critical thinking alongside this assessment.
+      <div className="bg-[#f5f5f7] rounded-[28px] p-8 border border-black/5">
+        <p className="text-sm text-[#6e6e73] text-center leading-relaxed">
+          <strong className="text-[#1d1d1f]">Disclaimer:</strong> This analysis is provided for informational purposes.
+          Always verify important information from multiple sources and apply critical thinking.
         </p>
       </div>
     </div>

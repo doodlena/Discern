@@ -70,18 +70,19 @@ function AnalyzeContent() {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="min-h-screen bg-[#fbfbfd] py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Credibility Analyzer
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Analyze URLs, text, or PDF documents to get AI-powered credibility scores
-            with transparent explanations
-          </p>
-        </div>
+        {!result && (
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-6xl font-semibold text-[#1d1d1f] mb-6 tracking-tight">
+              Analyze content
+            </h1>
+            <p className="text-xl text-[#6e6e73] max-w-3xl mx-auto leading-relaxed">
+              Paste a URL, enter text, or upload a PDF for comprehensive credibility analysis
+            </p>
+          </div>
+        )}
 
         {/* Input Section */}
         {!result && (
@@ -94,7 +95,7 @@ function AnalyzeContent() {
 
         {/* Error Display */}
         {error && (
-          <div className="max-w-2xl mx-auto mb-8 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div className="max-w-3xl mx-auto mb-8 p-6 bg-red-50 border border-red-200 rounded-[28px]">
             <p className="text-red-800 font-medium">Error: {error}</p>
           </div>
         )}
@@ -118,7 +119,14 @@ function AnalyzeContent() {
 
 export default function AnalyzePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#fbfbfd]">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-[#0071e3] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-lg text-[#6e6e73]">Loading...</p>
+        </div>
+      </div>
+    }>
       <AnalyzeContent />
     </Suspense>
   )

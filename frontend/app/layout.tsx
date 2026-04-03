@@ -5,9 +5,9 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'DISCERN - AI-Powered Credibility Scoring',
-  description: 'Know what to trust. AI-powered credibility analysis for online content and documents.',
-  keywords: ['credibility', 'fact-checking', 'AI', 'misinformation', 'transparency'],
+  title: 'DISCERN - Credibility Analysis',
+  description: 'Instant credibility analysis for the information age.',
+  keywords: ['credibility', 'fact-checking', 'transparency', 'misinformation'],
 }
 
 export default function RootLayout({
@@ -18,47 +18,73 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className="border-b border-gray-200 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex items-center">
-                <a href="/" className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">D</span>
-                  </div>
-                  <span className="text-xl font-bold text-gray-900">DISCERN</span>
-                </a>
-              </div>
-              <div className="flex items-center space-x-8">
-                <a href="/" className="text-gray-700 hover:text-gray-900 font-medium">
+        {/* Navigation */}
+        <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-white/80 border-b border-black/5">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex justify-between items-center h-14">
+              {/* Logo */}
+              <a href="/" className="flex items-center gap-2 group">
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#0071e3] to-[#0055cc] flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">D</span>
+                </div>
+                <span className="text-xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
+              </a>
+
+              {/* Navigation Links */}
+              <div className="flex items-center gap-8">
+                <a
+                  href="/"
+                  className="text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
+                >
                   Home
                 </a>
-                <a href="/analyze" className="text-gray-700 hover:text-gray-900 font-medium">
+                <a
+                  href="/analyze"
+                  className="text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
+                >
                   Analyze
                 </a>
-                <a href="/about" className="text-gray-700 hover:text-gray-900 font-medium">
+                <a
+                  href="/about"
+                  className="text-sm font-medium text-[#1d1d1f] hover:text-[#0071e3] transition-colors duration-200"
+                >
                   About
                 </a>
-                <a href="/admin" className="text-gray-500 hover:text-gray-700 text-sm">
+                <a
+                  href="/admin"
+                  className="text-sm font-medium text-[#86868b] hover:text-[#6e6e73] transition-colors duration-200"
+                >
                   Admin
                 </a>
               </div>
             </div>
           </div>
         </nav>
-        <main>{children}</main>
-        <footer className="bg-gray-50 border-t border-gray-200 mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="text-center text-gray-600">
-              <p className="mb-2">
-                <strong>DISCERN</strong> - Built for the Presidential AI Challenge
+
+        {/* Add padding-top to account for fixed nav */}
+        <main className="pt-14">{children}</main>
+
+        {/* Footer */}
+        <footer className="bg-[#f5f5f7] border-t border-black/5">
+          <div className="max-w-7xl mx-auto px-6 py-16">
+            <div className="text-center space-y-4">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0071e3] to-[#0055cc] flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">D</span>
+                </div>
+                <span className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
+              </div>
+
+              <p className="text-sm text-[#6e6e73] max-w-md mx-auto">
+                Advanced credibility analysis powered by Anthropic Claude.
+                Built for transparency. Designed for trust.
               </p>
-              <p className="text-sm">
-                AI-assisted credibility analysis. Always verify important information independently.
-              </p>
-              <p className="text-xs mt-4 text-gray-500">
-                Powered by Anthropic Claude | Designed for transparency and trust
-              </p>
+
+              <div className="pt-6 border-t border-black/5 mt-8">
+                <p className="text-xs text-[#86868b]">
+                  Always verify important information independently.
+                </p>
+              </div>
             </div>
           </div>
         </footer>
