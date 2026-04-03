@@ -46,21 +46,27 @@ export default function CredibilityMeter({ score }: Props) {
           animate={{ strokeDashoffset: 251.2 - (animatedScore / 100) * 251.2 }}
           transition={{ duration: 1.5, ease: 'easeOut' }}
         />
-        {/* Needle */}
-        <motion.line
-          x1="100"
-          y1="100"
-          x2="100"
-          y2="30"
-          stroke="#374151"
-          strokeWidth="3"
-          strokeLinecap="round"
-          initial={{ rotate: -90 }}
-          animate={{ rotate: rotation }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
-          style={{ transformOrigin: '100px 100px' }}
-        />
-        <circle cx="100" cy="100" r="5" fill="#374151" />
+        {/* Needle Group with rotation */}
+        <g transform-origin="100 100">
+          <motion.g
+            initial={{ rotate: -90 }}
+            animate={{ rotate: rotation }}
+            transition={{ duration: 1.5, ease: 'easeOut' }}
+            style={{ transformOrigin: '100px 100px', transformBox: 'fill-box' }}
+          >
+            <line
+              x1="100"
+              y1="100"
+              x2="100"
+              y2="30"
+              stroke="#374151"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+          </motion.g>
+        </g>
+        {/* Center circle - always on top */}
+        <circle cx="100" cy="100" r="6" fill="#374151" />
       </svg>
 
       {/* Labels */}
