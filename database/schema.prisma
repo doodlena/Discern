@@ -120,3 +120,25 @@ model DemoContent {
 
   @@index([category])
 }
+
+// User Feedback - Track satisfaction and comments
+model Feedback {
+  id          String   @id @default(cuid())
+  analysisId  String   // Reference to Analysis (not enforced FK for flexibility)
+
+  // Satisfaction rating
+  thumbsUp    Boolean? // true = thumbs up, false = thumbs down, null = no rating
+
+  // Open-ended feedback
+  comment     String?  @db.Text
+
+  // Tracking
+  ipAddress   String?
+  userAgent   String?  @db.Text
+
+  createdAt   DateTime @default(now())
+
+  @@index([analysisId])
+  @@index([thumbsUp])
+  @@index([createdAt])
+}

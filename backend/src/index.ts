@@ -17,6 +17,7 @@ import { requestLogger } from './middleware/requestLogger';
 import analyzeRoutes from './api/analyze';
 import adminRoutes from './api/admin';
 import healthRoutes from './api/health';
+import feedbackRoutes from './api/feedback';
 
 const app = express();
 const server = createServer(app);
@@ -38,6 +39,7 @@ app.use(requestLogger);
 app.use('/api/health', healthRoutes);
 app.use('/api/analyze', analyzeRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // Error handling
 app.use(errorHandler);

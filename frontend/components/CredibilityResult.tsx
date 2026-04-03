@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { AnalysisResult } from '@discern/shared/types'
 import CredibilityMeter from './CredibilityMeter'
 import FactorsChart from './FactorsChart'
@@ -11,6 +12,10 @@ interface Props {
 }
 
 export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
+  const [thumbsUp, setThumbsUp] = useState<boolean | null>(null)
+  const [feedbackComment, setFeedbackComment] = useState('')
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
+  const [submittingFeedback, setSubmittingFeedback] = useState(false)
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-600'
     if (score >= 50) return 'text-yellow-600'
@@ -24,6 +29,40 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
       low: 'bg-red-100 text-red-800',
     }
     return colors[confidence as keyof typeof colors] || colors.medium
+  }
+
+  const handleFeedbackSubmit = async () => {
+    if (thumbsUp === null && !feedbackComment.trim()) {
+      return
+    }
+
+    setSubmittingFeedback(true)
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/feedback`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          analysisId: result.id,
+          thumbsUp,
+          comment: feedbackComment.trim() || null,
+        }),
+      })
+
+      if (response.ok) {
+        setFeedbackSubmitted(true)
+      }
+    } catch (error) {
+      console.error('Failed to submit feedback', error)
+    } finally {
+      setSubmittingFeedback(false)
+    }
+  }
+
+  const handleThumbsClick = (value: boolean) => {
+    setThumbsUp(value)
   }
 
   return (
@@ -174,6 +213,76 @@ export default function CredibilityResult({ result, onAnalyzeNew }: Props) {
           </div>
         </div>
       )}
+
+      {/* User Feedback */}
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200">
+        <h3 className="text-xl font-semibold text-gray-900 mb-4">
+          How was this analysis?
+        </h3>
+
+        {!feedbackSubmitted ? (
+          <div className="space-y-6">
+            {/* Thumbs Up/Down */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => handleThumbsClick(true)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition ${
+                  thumbsUp === true
+                    ? 'bg-green-600 text-white'
+                    : 'bg-white text-gray-700 hover:bg-green-50 border border-gray-300'
+                }`}
+              >
+                <span className="text-2xl">👍</span>
+                <span>Helpful</span>
+              </button>
+              <button
+                onClick={() => handleThumbsClick(false)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition ${
+                  thumbsUp === false
+                    ? 'bg-red-600 text-white'
+                    : 'bg-white text-gray-700 hover:bg-red-50 border border-gray-300'
+                }`}
+              >
+                <span className="text-2xl">👎</span>
+                <span>Not Helpful</span>
+              </button>
+            </div>
+
+            {/* Feedback Comment */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Have suggestions or feedback? (Optional)
+              </label>
+              <textarea
+                value={feedbackComment}
+                onChange={(e) => setFeedbackComment(e.target.value)}
+                placeholder="Tell us what you think..."
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none"
+                rows={3}
+              />
+            </div>
+
+            {/* Submit Button */}
+            <button
+              onClick={handleFeedbackSubmit}
+              disabled={submittingFeedback || (thumbsUp === null && !feedbackComment.trim())}
+              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {submittingFeedback ? 'Submitting...' : 'Submit Feedback'}
+            </button>
+          </div>
+        ) : (
+          <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+            <div className="text-4xl mb-2">✅</div>
+            <p className="text-green-800 font-medium">
+              Thank you for your feedback!
+            </p>
+            <p className="text-sm text-green-600 mt-1">
+              Your input helps us improve DISCERN
+            </p>
+          </div>
+        )}
+      </div>
 
       {/* Disclaimer */}
       <div className="bg-gray-100 rounded-xl p-6 border border-gray-300">
