@@ -115,7 +115,7 @@ discern/
 
 ### 2. AI-Powered Scoring Engine
 
-✅ **Claude Sonnet 4.5 Integration**
+✅ **Claude Sonnet 4.6 Integration**
 - Structured prompts for consistent analysis
 - Multi-factor scoring (0-100 scale)
 - Confidence level assessment
@@ -257,7 +257,7 @@ discern/
 - **Runtime:** Node.js
 - **Framework:** Express
 - **Language:** TypeScript
-- **AI:** Anthropic Claude (Sonnet 4.5)
+- **AI:** Anthropic Claude (Sonnet 4.6)
 - **Database:** PostgreSQL + Prisma
 - **PDF:** pdf-parse
 - **Web Scraping:** Axios + Cheerio
@@ -445,7 +445,7 @@ For issues or questions:
 
 ---
 
-**Built with:** ❤️ + Claude Sonnet 4.5
+**Built with:** ❤️ + Claude Sonnet 4.6
 **For:** Presidential AI Challenge 2024
 **Purpose:** Empowering truth in the information age
 

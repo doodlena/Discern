@@ -134,7 +134,7 @@ export default function About() {
             <div>
               <h4 className="font-semibold mb-2">AI & Backend</h4>
               <ul className="text-sm text-gray-300 space-y-1">
-                <li>• Anthropic Claude (Sonnet 4.5) for AI analysis</li>
+                <li>• Anthropic Claude (Sonnet 4.6) for AI analysis</li>
                 <li>• Node.js + Express API</li>
                 <li>• PostgreSQL database</li>
                 <li>• PDF parsing & web scraping</li>
