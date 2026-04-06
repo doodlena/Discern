@@ -173,7 +173,7 @@ router.get('/export', async (req: Request, res: Response) => {
     allAnalyses.forEach((analysis: any) => {
       const date = new Date(analysis.createdAt).toISOString();
       const summary = (analysis.summary || '').replace(/,/g, ';').replace(/\n/g, ' ').substring(0, 200);
-      csv += `${analysis.id},${date},${analysis.contentType},${analysis.score},${analysis.confidence},${analysis.factors?.bias || 0},${analysis.factors?.source_reputation || 0},${analysis.factors?.evidence || 0},${analysis.factors?.logic || 0},${analysis.metadata?.domain || 'N/A'},${analysis.warnings?.length > 0 ? 'Yes' : 'No'},${analysis.citations?.length || 0},"${summary}"\n`;
+      csv += `${analysis.id},${date},${analysis.contentType},${analysis.score},${analysis.confidence},${analysis.factors?.bias || 0},${analysis.factors?.source_reputation || 0},${analysis.factors?.evidence || 0},${analysis.factors?.logic || 0},${analysis.domain || 'N/A'},${analysis.warnings?.length > 0 ? 'Yes' : 'No'},${analysis.citations?.length || 0},"${summary}"\n`;
     });
 
     res.setHeader('Content-Type', 'text/csv');

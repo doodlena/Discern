@@ -118,7 +118,6 @@ export class DatabaseService {
       const analyses = await prisma.analysis.findMany({
         where: {
           createdAt: { gte: since },
-          demoMode: false, // Exclude demo analyses
         },
       });
 
@@ -225,7 +224,6 @@ export class DatabaseService {
       const analyses = await prisma.analysis.findMany({
         where: {
           createdAt: { gte: since },
-          demoMode: false,
         },
       });
 
@@ -431,7 +429,6 @@ export class DatabaseService {
       const analyses = await prisma.analysis.findMany({
         where: {
           createdAt: { gte: since },
-          demoMode: false,
         },
         orderBy: {
           createdAt: 'desc',
