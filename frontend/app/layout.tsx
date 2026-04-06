@@ -23,11 +23,11 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex justify-between items-center h-14">
               {/* Logo */}
-              <a href="/" className="flex items-center gap-2 group flex-shrink-0">
+              <a href="/" className="flex items-center group flex-shrink-0">
                 <img
                   src="/logo.png"
                   alt="DISCERN Logo"
-                  className="h-8 w-auto object-contain"
+                  className="h-14 w-auto object-contain m-0 p-0"
                 />
               </a>
 
@@ -69,11 +69,12 @@ export default function RootLayout({
         <footer className="bg-[#f5f5f7] border-t border-black/5">
           <div className="max-w-7xl mx-auto px-6 py-16">
             <div className="text-center space-y-4">
-              <div className="flex items-center justify-center gap-2 mb-6">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0071e3] to-[#0055cc] flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">D</span>
-                </div>
-                <span className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
+              <div className="flex items-center justify-center mb-6">
+                <img
+                  src="/logo.png"
+                  alt="DISCERN Logo"
+                  className="h-16 w-auto object-contain m-0 p-0"
+                />
               </div>
 
               <p className="text-sm text-[#6e6e73] max-w-md mx-auto">
