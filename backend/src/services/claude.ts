@@ -64,7 +64,7 @@ export class ClaudeService {
       const response = await getClient().messages.create({
         model: MODEL,
         max_tokens: maxTokens,
-        temperature: 0.2, // Lower temperature to reduce hallucination in citations
+        temperature: 0.1, // Very low temperature for maximum factual accuracy and minimal hallucination
         system: systemPrompt,
         messages: [
           {
