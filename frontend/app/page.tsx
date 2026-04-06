@@ -29,7 +29,7 @@ export default function Home() {
 
             {/* Subheadline */}
             <p className="text-2xl md:text-3xl font-normal text-[#6e6e73] mb-4 max-w-4xl mx-auto leading-snug tracking-tight">
-              Instant credibility analysis for the information age.
+              Instant credibility analysis.
             </p>
 
             <p className="text-lg md:text-xl font-normal text-[#86868b] mb-16 max-w-2xl mx-auto">
@@ -99,7 +99,7 @@ export default function Home() {
               Credibility. Clarity. Confidence.
             </h2>
             <p className="text-xl text-[#86868b] max-w-3xl mx-auto">
-              Four pillars of analysis working together to reveal the truth.
+              Four pillars of analysis used to reveal the truth.
             </p>
           </motion.div>
 
@@ -153,7 +153,7 @@ export default function Home() {
               Transparent by design.
             </h2>
             <p className="text-xl text-[#86868b] max-w-3xl mx-auto">
-              Every analysis breaks down exactly how we evaluate credibility across four key dimensions.
+              Every analysis breaks down how credibility is evaluated across four dimensions.
             </p>
           </motion.div>
 
@@ -214,7 +214,7 @@ export default function Home() {
               Analyze as you browse.
             </h2>
             <p className="text-2xl text-[#a1a1a6] mb-12 max-w-2xl mx-auto">
-              The Chrome extension brings credibility analysis to every article you read.
+              The Chrome extension assesses credibilty to every article you read.
             </p>
 
             <a
@@ -229,7 +229,7 @@ export default function Home() {
             </a>
 
             <p className="text-sm text-[#86868b] mt-8">
-              Free installation • Works offline • Privacy-focused
+              Free installation • Privacy-focused
             </p>
           </motion.div>
         </div>
@@ -248,7 +248,7 @@ export default function Home() {
               Start analyzing today.
             </h2>
             <p className="text-xl text-[#6e6e73] mb-12">
-              No account needed. Get 10 free analyses daily.
+              No account needed. Get 5 free evaluations daily.
             </p>
 
             <Link
