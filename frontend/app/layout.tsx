@@ -24,10 +24,11 @@ export default function RootLayout({
             <div className="flex justify-between items-center h-14">
               {/* Logo */}
               <a href="/" className="flex items-center gap-2 group flex-shrink-0">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#0071e3] to-[#0055cc] flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">D</span>
-                </div>
-                <span className="text-lg sm:text-xl font-semibold text-[#1d1d1f] tracking-tight">DISCERN</span>
+                <img
+                  src="/logo.png"
+                  alt="DISCERN Logo"
+                  className="h-8 w-auto object-contain"
+                />
               </a>
 
               {/* Navigation Links */}
