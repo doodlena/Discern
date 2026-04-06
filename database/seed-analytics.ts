@@ -116,9 +116,9 @@ function generateCitations(score: number) {
 }
 
 function getRandomDate(): Date {
-  // Create dates between April 2, 2026 and now (April 6, 2026)
-  const startDate = new Date('2026-04-02T00:00:00');
-  const endDate = new Date(); // Today
+  // Create dates between April 3, 2026 and April 6, 2026
+  const startDate = new Date('2026-04-03T00:00:00');
+  const endDate = new Date('2026-04-06T23:59:59');
 
   const timeDiff = endDate.getTime() - startDate.getTime();
   const randomTime = Math.random() * timeDiff;
@@ -169,7 +169,7 @@ async function seedAnalytics() {
       ipAddress: `192.168.${randomBetween(1, 255)}.${randomBetween(1, 255)}`,
       userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
       domain: contentType === 'url' ? domainInfo.domain : null,
-      createdAt: getRandomDate(), // Spread between April 2 and today
+      createdAt: getRandomDate(), // Spread evenly from April 3-6, 2026
     };
 
     try {
