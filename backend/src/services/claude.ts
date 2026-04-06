@@ -64,7 +64,7 @@ export class ClaudeService {
       const response = await getClient().messages.create({
         model: MODEL,
         max_tokens: maxTokens,
-        temperature: 0.3, // Lower temperature for consistent, factual analysis
+        temperature: 0.2, // Lower temperature to reduce hallucination in citations
         system: systemPrompt,
         messages: [
           {
@@ -175,12 +175,32 @@ You must score content across 4 factors (each worth 0-25 points):
 1. **Transparency**: Always explain your reasoning
 2. **Nuance**: Avoid absolute judgments; acknowledge complexity
 3. **Cross-verification**: Before flagging claims as extraordinary or unusual, verify against current events and recent news
-4. **Citations**: Generate ${citationLimit} key supporting/contradicting citations with real sources
+4. **Citations**: Provide ${citationLimit} citations when possible, but prioritize accuracy over quantity
 5. **Warnings**:
    - Flag potential misinformation, health claims, or conspiracy theories
    - For breaking news or rapidly evolving events: Add warning that "Rapidly evolving events may have limited verification sources and are subject to change"
    - Do NOT flag recent events as "future" or "unlikely" without verification
 6. **Ethics**: Remind users this is AI-assisted analysis, not absolute truth
+
+# Citation Integrity - CRITICAL ANTI-HALLUCINATION RULES
+**NEVER fabricate or invent information. Honesty over completeness.**
+
+STRICT RULES for citations:
+1. **NO Fake URLs**: NEVER create made-up URLs. If you don't know the actual URL, omit the "url" field entirely or use null
+2. **NO Fake Source Names**: Do NOT invent specific article titles, author names, or publication names. Use general descriptions like "Major news outlets report..." if uncertain
+3. **Be Honest About Uncertainty**: If you cannot verify a claim with specific sources, use phrases like:
+   - "claim": "Unable to independently verify this specific claim"
+   - "source": "General knowledge / Unable to verify specific source"
+   - "reliability": "low"
+   - "supports": false
+4. **Real vs. Hypothetical**: Only cite sources you have actual knowledge of. If reasoning from general knowledge of a domain's reputation (e.g., "Reuters is generally credible"), that's acceptable, but don't fabricate specific articles
+5. **Reduce Citations If Needed**: If you can only find ${citationLimit === '4-6' ? '2-3' : '1-2'} legitimate citations, provide those instead of inventing fake ones to meet the quota
+6. **Domain Analysis**: You CAN assess the general credibility of a news domain (e.g., "Reuters is a high-credibility wire service") without citing specific articles
+7. **Contextual Claims**: For claims made IN the content you're analyzing, you can quote those claims without needing external verification - just mark reliability as "low" and supports as "false" if unverifiable
+
+**Priority Order**: Honesty > Completeness > Meeting citation count
+
+If content makes unverifiable claims, it's better to have 1-2 honest citations saying "cannot verify" than 4-6 made-up sources.
 
 # Output Format
 You MUST respond with valid JSON only:
@@ -214,9 +234,15 @@ You MUST respond with valid JSON only:
   }
 }
 
-IMPORTANT: Provide ${citationLimit} citations. For each citation, you MUST include:
-- "reliabilityReason": ${explanationLength.charAt(0).toUpperCase() + explanationLength.slice(1)} explanation of why the source has this reliability rating
-- "supportsReason": ${explanationLength.charAt(0).toUpperCase() + explanationLength.slice(1)} explanation of how the source supports or contradicts the claim`;
+IMPORTANT CITATION REQUIREMENTS:
+- **Target**: ${citationLimit} citations when verifiable sources exist
+- **Minimum**: Provide at least 1-2 citations, even if you must note "Unable to verify"
+- **NO FABRICATION**: Never invent URLs, specific article titles, or author names
+- **Honesty**: If uncertain, use general descriptions or mark as "Unable to verify specific source"
+- For each citation, you MUST include:
+  - "reliabilityReason": ${explanationLength.charAt(0).toUpperCase() + explanationLength.slice(1)} explanation of why this reliability rating
+  - "supportsReason": ${explanationLength.charAt(0).toUpperCase() + explanationLength.slice(1)} explanation of how it supports or contradicts
+- **Quality over Quantity**: 2 honest citations > 6 fabricated ones`;
   }
 
   /**
