@@ -8,20 +8,20 @@
 
 Built for the Presidential AI Challenge to combat misinformation with transparent, explainable AI analysis.
 
-## ✨ Features
+##  Features
 
-- 🔍 **Multi-Input Analysis**: Analyze URLs, pasted text, or PDF documents
-- 🎯 **AI-Powered Scoring**: Claude 4.6 Sonnet evaluates content across 4 key factors
-- ⚖️ **Neutrality Detection**: Identifies bias, emotional manipulation, and loaded terminology
-- 🏛️ **Source Reputation**: Evaluates domain authority and institutional credibility
-- 📚 **Evidence Quality**: Assesses citations, data sources, and expert references
-- 🧠 **Logical Consistency**: Checks for contradictions and reasoning soundness
-- 📊 **Citation Verification**: Auto-generates supporting/contradicting sources
-- ⚡ **Real-Time Results**: Instant credibility scores with detailed breakdowns
-- 📈 **Analytics Dashboard**: Track trends and analyze patterns (admin only)
-- 🔐 **Ethical AI**: Transparent, acknowledges limitations and uncertainty
+- **Multi-Input Analysis**: Analyze URLs, pasted text, or PDF documents
+- **AI-Powered Scoring**: Claude 4.6 Sonnet evaluates content across 4 key factors
+- **Neutrality Detection**: Identifies bias, emotional manipulation, and loaded terminology
+- **Source Reputation**: Evaluates domain authority and institutional credibility
+- **Evidence Quality**: Assesses citations, data sources, and expert references
+- **Logical Consistency**: Checks for contradictions and reasoning soundness
+- **Citation Verification**: Auto-generates supporting/contradicting sources
+- **Real-Time Results**: Instant credibility scores with detailed breakdowns
+- **Analytics Dashboard**: Track trends and analyze patterns (admin only)
+- **Ethical AI**: Transparent, acknowledges limitations and uncertainty
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -83,7 +83,7 @@ npm run dev
 
 6. **Open the app**: http://localhost:3000
 
-## 📖 How It Works
+## How It Works
 
 ### Credibility Scoring (0-100 scale)
 
@@ -113,7 +113,7 @@ DISCERN evaluates content across **4 factors** (each worth 0-25 points):
 - **Medium**: Mixed signals, some uncertainty
 - **Low**: Conflicting indicators, limited data
 
-## 🏗️ Technology Stack
+## Technology Stack
 
 ### Frontend
 - **Next.js 14** (React framework)
@@ -133,24 +133,24 @@ DISCERN evaluates content across **4 factors** (each worth 0-25 points):
 - **Railway / Vercel** (hosting)
 - **GitHub** (version control)
 
-## 📊 Cost Per Analysis
+## Cost Per Analysis
 
 Using Claude Sonnet 4.6:
 - ~$0.02-0.03 per article
 - With $20 in API credits: ~650-750 articles
 
-## 🔒 Security & Privacy
+## Security & Privacy
 
 - No personal data collection
 - API keys stored securely in environment variables
 - Admin dashboard password-protected
 - Content analysis only - no tracking or profiling
 
-## 🚀 Deployment
+## Deployment
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions to Railway or Vercel.
 
-## 📝 API Endpoints
+## API Endpoints
 
 ### Public Endpoints
 
@@ -164,7 +164,7 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions to Rai
 - `GET /api/admin/stats` - Get quick stats
 - `GET /api/admin/export` - Export CSV
 
-## 🤝 Contributing
+## Contributing
 
 This project was created for the Presidential AI Challenge. Contributions are welcome!
 
@@ -174,7 +174,7 @@ This project was created for the Presidential AI Challenge. Contributions are we
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 DISCERN provides **AI-assisted credibility analysis**, not absolute truth. Scores are based on algorithmic assessment and should be used as one tool among many. Always:
 
@@ -183,11 +183,11 @@ DISCERN provides **AI-assisted credibility analysis**, not absolute truth. Score
 - Use critical thinking alongside AI assistance
 - Consult experts for specialized or critical decisions
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](./LICENSE) file for details
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with [Claude 4.6 Sonnet](https://www.anthropic.com/claude) by Anthropic
 - Created for the Presidential AI Challenge
@@ -195,4 +195,4 @@ MIT License - see [LICENSE](./LICENSE) file for details
 
 ---
 
-**Made with ❤️ and AI for a more informed world**
+**Made for a more informed world**
