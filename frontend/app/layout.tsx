@@ -77,12 +77,11 @@ export default function RootLayout({
 
               <p className="text-sm text-[#6e6e73] max-w-md mx-auto">
                 Advanced credibility analysis powered by Anthropic Claude.
-                Built for transparency. Designed for trust.
               </p>
 
               <div className="pt-6 border-t border-black/5 mt-8">
                 <p className="text-xs text-[#86868b]">
-                  Always verify important information independently.
+                  DISCERN may make mistakes. Always verify important information independently.
                 </p>
               </div>
             </div>
