@@ -59,7 +59,7 @@ export class ClaudeService {
 
       const response = await getClient().messages.create({
         model: MODEL,
-        max_tokens: 2048,
+        max_tokens: 1500, // Reduced for faster response
         temperature: 0.3, // Lower temperature for consistent, factual analysis
         system: systemPrompt,
         messages: [
@@ -165,7 +165,7 @@ You must score content across 4 factors (each worth 0-25 points):
 1. **Transparency**: Always explain your reasoning
 2. **Nuance**: Avoid absolute judgments; acknowledge complexity
 3. **Cross-verification**: Before flagging claims as extraordinary or unusual, verify against current events and recent news
-4. **Citations**: Generate specific, verifiable supporting/contradicting citations with real sources
+4. **Citations**: Generate 2-3 key supporting/contradicting citations with real sources (keep it concise)
 5. **Warnings**:
    - Flag potential misinformation, health claims, or conspiracy theories
    - For breaking news or rapidly evolving events: Add warning that "Rapidly evolving events may have limited verification sources and are subject to change"
@@ -204,9 +204,9 @@ You MUST respond with valid JSON only:
   }
 }
 
-IMPORTANT: For each citation, you MUST include:
-- "reliabilityReason": Brief explanation of why the source has this reliability rating
-- "supportsReason": Brief explanation of how the source supports or contradicts the claim`;
+IMPORTANT: Limit to 2-3 citations maximum for speed. For each citation, you MUST include:
+- "reliabilityReason": Very brief (one short sentence) explanation of why the source has this reliability rating
+- "supportsReason": Very brief (one short sentence) explanation of how the source supports or contradicts the claim`;
   }
 
   /**
