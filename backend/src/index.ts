@@ -28,7 +28,22 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin: (origin, callback) => {
+    // Allow requests from:
+    // 1. Frontend URL
+    // 2. Chrome/Firefox extensions (chrome-extension://* or moz-extension://*)
+    // 3. No origin (for local testing)
+    const allowedOrigins = [FRONTEND_URL];
+
+    if (!origin ||
+        allowedOrigins.includes(origin) ||
+        origin.startsWith('chrome-extension://') ||
+        origin.startsWith('moz-extension://')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));

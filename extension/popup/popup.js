@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001'
+const API_URL = 'https://discern-backend-tnxh.onrender.com'
 
 const app = document.getElementById('app')
 const analyzeBtn = document.getElementById('analyzeBtn')
@@ -96,7 +96,7 @@ function showResult(result) {
   `
 
   document.getElementById('viewFullBtn').addEventListener('click', () => {
-    chrome.tabs.create({ url: `http://localhost:3000/analyze?url=${encodeURIComponent(currentUrl)}` })
+    chrome.tabs.create({ url: `https://www.usediscern.com/analyze?url=${encodeURIComponent(currentUrl)}` })
   })
 
   document.getElementById('retryBtn').addEventListener('click', () => {
