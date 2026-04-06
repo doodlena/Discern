@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 
 interface Props {
-  onAnalyze: (type: 'url' | 'text' | 'pdf', content: string) => void
+  onAnalyze: (type: 'url' | 'text' | 'pdf', content: string, analysisMode?: 'brief' | 'detailed') => void
   loading: boolean
   processingStep: string
 }
@@ -13,6 +13,7 @@ export default function AnalyzerInput({ onAnalyze, loading, processingStep }: Pr
   const [activeTab, setActiveTab] = useState<'url' | 'text' | 'pdf'>('url')
   const [urlInput, setUrlInput] = useState('')
   const [textInput, setTextInput] = useState('')
+  const [analysisMode, setAnalysisMode] = useState<'brief' | 'detailed'>('brief')
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -26,7 +27,7 @@ export default function AnalyzerInput({ onAnalyze, loading, processingStep }: Pr
         const reader = new FileReader()
         reader.onload = () => {
           const base64 = reader.result as string
-          onAnalyze('pdf', base64)
+          onAnalyze('pdf', base64, analysisMode)
         }
         reader.readAsDataURL(file)
       }
@@ -35,14 +36,43 @@ export default function AnalyzerInput({ onAnalyze, loading, processingStep }: Pr
 
   const handleSubmit = () => {
     if (activeTab === 'url' && urlInput) {
-      onAnalyze('url', urlInput)
+      onAnalyze('url', urlInput, analysisMode)
     } else if (activeTab === 'text' && textInput) {
-      onAnalyze('text', textInput)
+      onAnalyze('text', textInput, analysisMode)
     }
   }
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Analysis Mode Selector */}
+      <div className="mb-6 flex items-center justify-center gap-3">
+        <span className="text-sm font-medium text-gray-700">Analysis mode:</span>
+        <div className="flex gap-2 bg-gray-100 p-1 rounded-lg">
+          <button
+            onClick={() => setAnalysisMode('brief')}
+            disabled={loading}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+              analysisMode === 'brief'
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            Brief (~30s)
+          </button>
+          <button
+            onClick={() => setAnalysisMode('detailed')}
+            disabled={loading}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+              analysisMode === 'detailed'
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            Detailed (~60s)
+          </button>
+        </div>
+      </div>
+
       <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
         {/* Tabs */}
         <div className="flex border-b border-gray-200">

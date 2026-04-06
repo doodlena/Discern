@@ -28,12 +28,13 @@ router.post('/', async (req: Request, res: Response) => {
       });
     }
 
-    const { type, content, demoMode, explainabilityMode } = request;
+    const { type, content, demoMode, explainabilityMode, analysisMode } = request;
 
     logger.info('Analysis request received', {
       type,
       demoMode,
       explainabilityMode,
+      analysisMode,
       contentLength: content.length,
     });
 
@@ -112,7 +113,8 @@ router.post('/', async (req: Request, res: Response) => {
     const result = await claudeService.analyzeContent(
       contentToAnalyze,
       type,
-      explainabilityMode || false
+      explainabilityMode || false,
+      analysisMode || 'brief'
     );
 
     const processingTime = Date.now() - startTime;

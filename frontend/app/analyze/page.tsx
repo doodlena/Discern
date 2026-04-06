@@ -24,7 +24,8 @@ function AnalyzeContent() {
 
   const handleAnalyze = async (
     type: 'url' | 'text' | 'pdf',
-    content: string
+    content: string,
+    analysisMode?: 'brief' | 'detailed'
   ) => {
     setLoading(true)
     setError(null)
@@ -56,6 +57,7 @@ function AnalyzeContent() {
         content,
         demoMode: false,
         explainabilityMode: false,
+        analysisMode: analysisMode || 'brief',
       })
 
       clearInterval(stepInterval)

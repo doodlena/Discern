@@ -35,14 +35,15 @@ export class ClaudeService {
   async analyzeContent(
     content: string,
     contentType: ContentType,
-    explainabilityMode: boolean = false
+    explainabilityMode: boolean = false,
+    analysisMode: 'brief' | 'detailed' = 'brief'
   ): Promise<AnalysisResult> {
     const startTime = Date.now();
     const processingSteps: ProcessingStep[] = [];
 
     try {
-      const systemPrompt = this.buildSystemPrompt();
-      const userPrompt = this.buildAnalysisPrompt(content, contentType, explainabilityMode);
+      const systemPrompt = this.buildSystemPrompt(analysisMode);
+      const userPrompt = this.buildAnalysisPrompt(content, contentType, explainabilityMode, analysisMode);
 
       if (explainabilityMode) {
         processingSteps.push({
@@ -57,9 +58,12 @@ export class ClaudeService {
         explainabilityMode,
       });
 
+      // Adjust max_tokens based on analysis mode
+      const maxTokens = analysisMode === 'detailed' ? 2500 : 1500;
+
       const response = await getClient().messages.create({
         model: MODEL,
-        max_tokens: 1500, // Reduced for faster response
+        max_tokens: maxTokens,
         temperature: 0.3, // Lower temperature for consistent, factual analysis
         system: systemPrompt,
         messages: [
@@ -118,8 +122,14 @@ export class ClaudeService {
   /**
    * Build system prompt for credibility analysis
    */
-  private buildSystemPrompt(): string {
+  private buildSystemPrompt(analysisMode: 'brief' | 'detailed' = 'brief'): string {
+    const citationLimit = analysisMode === 'detailed' ? '4-6' : '2-3';
+    const explanationLength = analysisMode === 'detailed' ? 'detailed' : 'very brief (one short sentence)';
+
     return `You are DISCERN, an AI-powered credibility assessment system designed for the Presidential AI Challenge. Your purpose is to analyze content and provide transparent, explainable credibility scores.
+
+# Analysis Mode: ${analysisMode.toUpperCase()}
+${analysisMode === 'brief' ? '- Focus on speed and essential information\n- Concise explanations\n- 2-3 key citations' : '- Comprehensive analysis\n- Detailed explanations\n- 4-6 supporting citations'}
 
 # Your Mission
 Help users identify reliable information by:
@@ -165,7 +175,7 @@ You must score content across 4 factors (each worth 0-25 points):
 1. **Transparency**: Always explain your reasoning
 2. **Nuance**: Avoid absolute judgments; acknowledge complexity
 3. **Cross-verification**: Before flagging claims as extraordinary or unusual, verify against current events and recent news
-4. **Citations**: Generate 2-3 key supporting/contradicting citations with real sources (keep it concise)
+4. **Citations**: Generate ${citationLimit} key supporting/contradicting citations with real sources
 5. **Warnings**:
    - Flag potential misinformation, health claims, or conspiracy theories
    - For breaking news or rapidly evolving events: Add warning that "Rapidly evolving events may have limited verification sources and are subject to change"
@@ -204,9 +214,9 @@ You MUST respond with valid JSON only:
   }
 }
 
-IMPORTANT: Limit to 2-3 citations maximum for speed. For each citation, you MUST include:
-- "reliabilityReason": Very brief (one short sentence) explanation of why the source has this reliability rating
-- "supportsReason": Very brief (one short sentence) explanation of how the source supports or contradicts the claim`;
+IMPORTANT: Provide ${citationLimit} citations. For each citation, you MUST include:
+- "reliabilityReason": ${explanationLength.charAt(0).toUpperCase() + explanationLength.slice(1)} explanation of why the source has this reliability rating
+- "supportsReason": ${explanationLength.charAt(0).toUpperCase() + explanationLength.slice(1)} explanation of how the source supports or contradicts the claim`;
   }
 
   /**
@@ -215,7 +225,8 @@ IMPORTANT: Limit to 2-3 citations maximum for speed. For each citation, you MUST
   private buildAnalysisPrompt(
     content: string,
     contentType: ContentType,
-    explainabilityMode: boolean
+    explainabilityMode: boolean,
+    analysisMode: 'brief' | 'detailed' = 'brief'
   ): string {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
 

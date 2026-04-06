@@ -6,11 +6,14 @@ export type ConfidenceLevel = 'low' | 'medium' | 'high';
 
 export type CitationReliability = 'low' | 'medium' | 'high';
 
+export type AnalysisMode = 'brief' | 'detailed';
+
 export interface AnalysisRequest {
   type: ContentType;
   content: string; // URL, text, or base64 PDF
   demoMode?: boolean;
   explainabilityMode?: boolean;
+  analysisMode?: AnalysisMode; // 'brief' for fast analysis, 'detailed' for comprehensive
 }
 
 export interface Citation {
