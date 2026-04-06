@@ -21,13 +21,13 @@ export default function RootLayout({
         {/* Navigation */}
         <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-white/80 border-b border-black/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="flex justify-between items-center h-14">
+            <div className="flex justify-between items-center h-24">
               {/* Logo */}
               <a href="/" className="flex items-center group flex-shrink-0">
                 <img
                   src="/logo.png"
                   alt="DISCERN Logo"
-                  className="h-14 w-auto object-contain m-0 p-0"
+                  className="h-20 w-auto object-contain m-0 p-0"
                 />
               </a>
 
@@ -63,7 +63,7 @@ export default function RootLayout({
         </nav>
 
         {/* Add padding-top to account for fixed nav */}
-        <main className="pt-14">{children}</main>
+        <main className="pt-24">{children}</main>
 
         {/* Footer */}
         <footer className="bg-[#f5f5f7] border-t border-black/5">
