@@ -17,6 +17,7 @@ const prisma = new PrismaClient();
 export class DatabaseService {
   /**
    * Save analysis result to database
+   * Stores complete analysis with metadata
    */
   async saveAnalysis(
     contentType: ContentType,
