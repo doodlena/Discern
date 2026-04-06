@@ -16,15 +16,14 @@ export default function About() {
         <section className="mb-16 bg-white rounded-xl p-8 shadow-sm border border-gray-200">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            DISCERN empowers individuals to navigate the modern information landscape with
-            confidence. In an era of widespread misinformation, we provide transparent,
-            AI-powered credibility analysis to help users make informed decisions about
-            the content they consume.
+            DISCERN allows individuals to navigate the modern information landscape with
+            accuracy. In an era of widespread misinformation, particularly with the development 
+            of AI, we provide transparent credibility analysis to inform users abou the information 
+            they receive.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Our platform emphasizes <strong>transparency</strong>, <strong>explainability</strong>,
-            and <strong>ethical AI use</strong> - ensuring users understand not just the credibility
-            score, but the reasoning behind it.
+            Our platform emphasizes <strong>transparency</strong> and <strong>explainability</strong>,
+            ensuring users understand not just the credibility score, but the reasoning behind it.
           </p>
         </section>
 
@@ -62,7 +61,7 @@ export default function About() {
             {factors.map((factor, index) => (
               <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="text-3xl">{factor.icon}</span>
+                  <span className="text-3xl">  </span>
                   <h4 className="font-bold text-gray-900">{factor.name}</h4>
                 </div>
                 <p className="text-sm text-gray-600">{factor.description}</p>
@@ -77,9 +76,9 @@ export default function About() {
               Scores are categorized as:
             </p>
             <ul className="mt-2 space-y-1 text-sm text-gray-700">
-              <li>🟢 <strong>High Credibility (80-100):</strong> Reliable, well-sourced content</li>
-              <li>🟡 <strong>Medium Credibility (50-79):</strong> Mixed signals, verify important claims</li>
-              <li>🔴 <strong>Low Credibility (0-49):</strong> Significant issues detected, high skepticism warranted</li>
+              <li> <strong>High Credibility (80-100):</strong> Reliable, well-sourced content</li>
+              <li> <strong>Medium Credibility (50-79):</strong> Mixed signals, verify important claims</li>
+              <li> <strong>Low Credibility (0-49):</strong> Significant issues detected, high skepticism warranted</li>
             </ul>
           </div>
         </section>
@@ -91,7 +90,7 @@ export default function About() {
           </h2>
 
           <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
-            <h3 className="font-bold text-gray-900 mb-2">⚠️ Important Disclaimer</h3>
+            <h3 className="font-bold text-gray-900 mb-2"> Important Disclaimer</h3>
             <p className="text-gray-700">
               DISCERN provides <strong>AI-assisted credibility analysis</strong>, not absolute truth.
               Our scores are based on algorithmic assessment and should be used as one tool among
@@ -107,19 +106,19 @@ export default function About() {
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-              <h4 className="font-bold text-gray-900 mb-2">🔍 Transparency</h4>
+              <h4 className="font-bold text-gray-900 mb-2"> Transparency</h4>
               <p className="text-sm text-gray-600">
                 Every score includes detailed explanations of how it was calculated
               </p>
             </div>
             <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-              <h4 className="font-bold text-gray-900 mb-2">🤖 AI Limitations</h4>
+              <h4 className="font-bold text-gray-900 mb-2"> AI Limitations</h4>
               <p className="text-sm text-gray-600">
                 We openly acknowledge uncertainty and potential biases in AI analysis
               </p>
             </div>
             <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-              <h4 className="font-bold text-gray-900 mb-2">🔐 Privacy</h4>
+              <h4 className="font-bold text-gray-900 mb-2"> Privacy</h4>
               <p className="text-sm text-gray-600">
                 No personal data collection, analysis only for credibility assessment
               </p>
@@ -144,7 +143,7 @@ export default function About() {
               <h4 className="font-semibold mb-2">Frontend</h4>
               <ul className="text-sm text-gray-300 space-y-1">
                 <li>• Next.js 14 (React framework)</li>
-                <li>• Tailwind CSS for styling</li>
+                <li>• CSS for styling</li>
                 <li>• Framer Motion animations</li>
                 <li>• Recharts for analytics</li>
               </ul>
@@ -185,25 +184,21 @@ const steps = [
 
 const factors = [
   {
-    icon: '⚖️',
     name: 'Neutrality',
     description: 'Evaluates fact-based language vs. emotional manipulation and loaded terminology',
     weight: 'Worth 0-25 points (higher score = more neutral)',
   },
   {
-    icon: '🏛️',
     name: 'Source Reputation',
     description: 'Evaluates domain authority, institutional credibility, and author expertise',
     weight: 'Worth 0-25 points',
   },
   {
-    icon: '📚',
     name: 'Evidence Quality',
     description: 'Assesses citations, data sources, peer review, and supporting documentation',
     weight: 'Worth 0-25 points',
   },
   {
-    icon: '🧠',
     name: 'Logical Consistency',
     description: 'Checks for contradictions, fallacies, and reasoning soundness',
     weight: 'Worth 0-25 points',
