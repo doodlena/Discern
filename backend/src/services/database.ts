@@ -69,6 +69,7 @@ export class DatabaseService {
    */
   async getCachedAnalysis(content: string): Promise<AnalysisResult | null> {
     try {
+      // Generate hash for cache lookup
       const contentHash = generateContentHash(content);
 
       const analysis = await prisma.analysis.findUnique({
