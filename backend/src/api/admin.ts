@@ -68,7 +68,7 @@ router.get('/analytics', adminAuth, async (req: Request, res: Response) => {
 /**
  * GET /api/admin/stats
  * Get quick stats for dashboard
- * Requires admin authentication
+ * Requires admin authentication header
  */
 router.get('/stats', adminAuth, async (req: Request, res: Response) => {
   try {
